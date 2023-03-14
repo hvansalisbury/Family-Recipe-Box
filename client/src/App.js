@@ -1,24 +1,27 @@
-// imports react, react router
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// imports search books, saved books pages, and navbar component
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
-// imports apollo client components
-import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink, useQuery } from '@apollo/client';
-import { GET_ME } from './utils/queries';
-// imports set context from apollo client link 
-import { setContext } from '@apollo/client/link/context';
-// sets up apollo client to work with graphql
+
+// Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
-// defines authLink to set the request headers
+
+// Construct request middleware that will attach the JWT token to every request as an `authorization` header
 const authLink = setContext((_, { headers }) => {
-  // gets token from local storage
+  // get the authentication token from local storage if it exists
   const token = localStorage.getItem('id_token');
-  // returns the headers to the context
+  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
@@ -26,32 +29,31 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
-// defines client to use authLink and httpLink
+
 const client = new ApolloClient({
+  // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
-// function to render the app
+
 function App() {
-  // returns html to render
   return (
-  
     <ApolloProvider client={client}>
       <Router>
         <>
           <Navbar />
           <Routes>
-            <Route
-              path='/'
-              element={<SearchBooks />}
+            <Route 
+              path="/" 
+              element={<SearchBooks/>} 
             />
-            <Route
-              path='/saved'
-              element={<SavedBooks />}
+            <Route 
+              path="/saved" 
+              element={<SavedBooks/>} 
             />
-            <Route
-              path='*'
-              element={<h1 className='display-2'>Wrong page!</h1>}
+            <Route 
+              path='*' 
+              element={<h1 className="display-2">Wrong page!</h1>}
             />
           </Routes>
         </>
@@ -59,5 +61,5 @@ function App() {
     </ApolloProvider>
   );
 }
-// exports app
+
 export default App;
