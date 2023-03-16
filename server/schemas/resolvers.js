@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User } = require('../models');
+const { User, Recipe } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -13,6 +13,13 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+    recipe: async (parent, { _id }) => {
+      if (context.user) {
+        const recipeData = await Recipe.findOne({ _id: context.recipe._id }).select('-__v');
+
+        return recipeData;
+      }
+    }
   },
 
   Mutation: {
@@ -38,11 +45,11 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveBook: async (parent, { bookData }, context) => {
+    saveRecipe: async (parent, { recipeData }, context) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { savedBooks: bookData } },
+          { $push: { recipes: recipeData } },
           { new: true }
         );
 
@@ -51,11 +58,11 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
-    removeBook: async (parent, { bookId }, context) => {
+    removeRecipe: async (parent, { recipeId }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedBooks: { bookId } } },
+          { $pull: { recipes: { recipeId } } },
           { new: true }
         );
 
