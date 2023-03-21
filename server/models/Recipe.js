@@ -1,24 +1,26 @@
-const { Schema } = require('mongoose');
-const Ingredient = require('./Ingredient');
-const Instruction = require('./Instruction');
+const { Schema, model } = require('mongoose');
+const ingredientSchema = require('./Ingredient');
+const instructionSchema = require('./Instruction');
 
-// This is a subdocument schema, it won't become its own model but we'll use it as the schema for the User's `savedBooks` array in User.js
-const recipeSchema = new Schema({
+const recipeSchema = new Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    ingredients: [ingredientSchema],
+    instructions: [instructionSchema]
+  }
+);
 
-  author: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  ingredients: [Ingredient],
-  instructions: [Instruction]
-});
+const Recipe = model('Recipe', recipeSchema);
 
-module.exports = recipeSchema;
+module.exports = Recipe;

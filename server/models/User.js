@@ -2,9 +2,7 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 // import schema from Recipe.js
-const recipeSchema = require('./recipe');
-const Ingredient = require('./Ingredient');
-const Instruction = require('./Instruction');
+// const Recipe = require('./recipe');
 
 const userSchema = new Schema(
   {
@@ -24,7 +22,12 @@ const userSchema = new Schema(
       required: true,
     },
     // set savedBooks to be an array of data that adheres to the bookSchema
-    recipes: [recipeSchema],
+    recipes: [
+      {
+        type: String,
+        unique: true,
+      },
+    ],
   },
   // set this to use virtual below
   {
@@ -49,10 +52,10 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-// // when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
-// userSchema.virtual('bookCount').get(function () {
-//   return this.savedBooks.length;
-// });
+// when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
+userSchema.virtual('recipeCount').get(function () {
+  return this.recipes.length;
+});
 
 const User = model('User', userSchema);
 
