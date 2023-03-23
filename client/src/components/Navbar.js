@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
+import '../assets/css/navbar.css'
 
 import Auth from '../utils/auth';
 
@@ -12,32 +13,32 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
-        <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            Google Books Search
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar'>
-            <Nav className='ml-auto'>
-              <Nav.Link as={Link} to='/'>
-                Search For Books
-              </Nav.Link>
-              {/* if user is logged in show saved books and logout */}
-              {Auth.loggedIn() ? (
-                <>
-                  <Nav.Link as={Link} to='/saved'>
-                    See Your Books
-                  </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
-                </>
-              ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <header>
+        <a className='heading' as={Link} to='/'>
+          Family Recipe Box
+        </a>
+        <nav className=''>
+          <a href="/storerecipe" class="navlink">
+            Store a Recipe
+          </a>
+
+          {/* if user is logged in show saved recipes and logout */}
+          {Auth.loggedIn() ? (
+            <>
+              <a href='/saved' class="navlink">
+                See Your Recipes
+              </a>
+              <a onClick={Auth.logout} class="navlink">
+                Logout
+              </a>
+            </>
+          ) : (
+            <a onClick={() => setShowModal(true)} class="navlink">
+              Login/Sign Up
+            </a>
+          )}
+        </nav>
+      </header>
       {/* set modal data up */}
       <Modal
         size='lg'
