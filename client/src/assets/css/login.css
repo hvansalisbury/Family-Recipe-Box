@@ -1,0 +1,51 @@
+.login-section {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  border: 1px solid sienna;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 50%;
+}
+
+.form-line {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.form-line label {
+  text-align: end;
+  width: 25%;
+  padding-right: 1em;
+}
+
+.form-line input {
+  width: 75%;
+}
+
+.center-btn {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.error-message {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  color: #dc3545;
+  margin-bottom: .5rem;
+}
+
+.close-button {
+  border: none;
+  background-color: transparent;
+}
+
+.hidden {
+  display: none;
+}
