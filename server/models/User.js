@@ -25,7 +25,6 @@ const userSchema = new Schema(
     recipes: [
       {
         type: String,
-        unique: true,
       },
     ],
   },
