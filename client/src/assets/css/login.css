@@ -17,6 +17,10 @@
   margin-bottom: 1rem;
 }
 
+.form-line:first-of-type{
+  margin-top: 1rem;
+}
+
 .form-line label {
   text-align: end;
   width: 25%;
