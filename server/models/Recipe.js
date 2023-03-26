@@ -4,10 +4,10 @@ const instructionSchema = require('./Instruction');
 
 const recipeSchema = new Schema(
   {
-    userId: {
-      type: String,
-      required: true,
-    },
+    // userId: {
+    //   type: String,
+    //   required: true,
+    // },
     title: {
       type: String,
       required: true,

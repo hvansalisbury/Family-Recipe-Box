@@ -14,6 +14,9 @@ const ingredientSchema = new Schema({
     type: String,
     required: true,
   },
+  recipeId: {
+    type: String,
+  },
 });
 
 module.exports = ingredientSchema;

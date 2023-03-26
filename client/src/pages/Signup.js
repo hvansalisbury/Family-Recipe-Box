@@ -97,7 +97,6 @@ const Signup = (props) => {
               id='error-message'
               className="error-message"
               role='alert'
-              dismissible
               onClose={() => setShowAlert(false)}
               show={showAlert}
               variant='danger'
@@ -147,7 +146,6 @@ const Signup = (props) => {
           <div className='form-line'>
             <div className='center-btn'>
               <button
-                // disabled
                 type='submit'
                 {...userFormData.email && userFormData.password ? { disabled: false } : { disabled: true }}
               >
