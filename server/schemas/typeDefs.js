@@ -6,7 +6,7 @@ const typeDefs = gql`
     username: String!
     email: String
     recipeCount: Int
-    recipes: [String]
+    recipes: [Recipe]
   }
 
   type Recipe {
@@ -18,15 +18,15 @@ const typeDefs = gql`
   }
 
   type Ingredient {
-    amount: Int!
+    amount: String!
     unit: String!
     item: String!
     recipeId: String
   }
 
   type Instruction {
-    step: Int!
     direction: String!
+    recipeId: String
   }
 
   type Auth {
@@ -35,15 +35,15 @@ const typeDefs = gql`
   }
 
   input IngredientInput {
+    amount: String!
     unit: String!
-    amount: Int!
     item: String!
     recipeId: String
   }
 
   input InstructionInput {
-    step: Int!
     direction: String!
+    recipeId: String
   }
 
   input RecipeInput {
@@ -55,7 +55,7 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    recipe(id: ID!): Recipe
+    recipe(recipeId: ID!): Recipe
     recipes: [Recipe]
     users: [User]
   }
@@ -65,6 +65,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     saveRecipe(input: RecipeInput!): Recipe
     saveIngredient(input: IngredientInput!): Recipe
+    saveInstruction(input: InstructionInput!): Recipe
     removeRecipe(id: ID!): Recipe
     updateRecipe(id: ID!, input: RecipeInput!): Recipe
   }

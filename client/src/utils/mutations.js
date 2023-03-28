@@ -34,10 +34,11 @@ export const SAVE_RECIPE = gql`
         amount
         unit
         item
+        recipeId
       }
       instructions {
-        step
         direction
+        recipeId
       }
     }
   }
@@ -53,15 +54,35 @@ export const SAVE_INGREDIENT = gql`
         amount
         unit
         item
+        recipeId
       }
       instructions {
-        step
         direction
+        recipeId
       }
     }
   }
 `;
 
+export const SAVE_INSTRUCTION = gql`
+  mutation saveInstruction($input: InstructionInput!) {
+    saveInstruction(input: $input) {
+      _id
+      title
+      description
+      ingredients {
+        amount
+        unit
+        item
+        recipeId
+      }
+      instructions {
+        direction
+        recipeId
+      }
+    }
+  }
+`;
 
 export const REMOVE_BOOK = gql`
   mutation removeBook($bookId: ID!) {

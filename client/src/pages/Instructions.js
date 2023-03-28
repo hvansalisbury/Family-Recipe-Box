@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@apollo/client';
-import { SAVE_INGREDIENT } from '../utils/mutations';
+import { SAVE_INSTRUCTION } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
-const SaveIngredients = (props) => {
-  const [saveIngredientData, setSaveIngredientData] = useState([]);
+const SaveInstructions = (props) => {
+  const [saveInstructionData, setSaveInstructionData] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
-  const [saveIngredient, { error }] = useMutation(SAVE_INGREDIENT);
+  const [saveInstruction, { error }] = useMutation(SAVE_INSTRUCTION);
 
-  const [unit, setUnit] = useState('');
-  const [amount, setAmount] = useState('');
-  const [item, setItem] = useState('');
+  const [direction, setDirection] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -22,15 +20,11 @@ const SaveIngredients = (props) => {
     const inputType = target.name;
     const inputValue = target.value;
 
-    if (inputType === 'unit') {
-      setUnit(inputValue);
-    } else if (inputType === 'amount') {
-      setAmount(inputValue);
-    } else {
-      setItem(inputValue);
-    };
+    if (inputType === 'direction') {
+      setDirection(inputValue);
+    } 
 
-    setSaveIngredientData({ ...saveIngredientData, [inputType]: inputValue });
+    setSaveInstructionData({ ...saveInstructionData, [inputType]: inputValue });
   };
 
   const handleBlur = (e) => {
@@ -62,11 +56,11 @@ const SaveIngredients = (props) => {
       event.stopPropagation();
     }
     const recipeid = localStorage.getItem('recipeId');
-    saveIngredientData.recipeId = recipeid;
-    const input = {input: saveIngredientData};
+    saveInstructionData.recipeId = recipeid;
+    const input = {input: saveInstructionData};
     console.log(input);
     try {
-      const { data } = await saveIngredient({
+      const { data } = await saveInstruction({
         variables: { ...input },
       });
       console.log(data);
@@ -75,20 +69,16 @@ const SaveIngredients = (props) => {
       console.error(err);
     }
     
-    setSaveIngredientData({
-      unit: '',
-      amount: '',
-      item: '',
+    setSaveInstructionData({
+      direction: '',
     });
-    setAmount('');
-    setUnit('');
-    setItem('');
+    setDirection('');
   };
 
   return (
     <>
       <section className='storerecipe-section'>
-        <h2>Add Ingredient</h2>
+        <h2>Add Instructions</h2>
         <form className='form' onSubmit={handleFormSubmit}>
           {errorMessage && (
             <div
@@ -103,34 +93,12 @@ const SaveIngredients = (props) => {
             </div>
           )}
           <div className='form-line'>
-            <label for='title'>Amount: </label>
-            <input
-              type='number'
-              name='amount'
-              placeholder='amount of ingredient'
-              value={amount}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </div>
-          <div className='form-line'>
-            <label for='description'>Unit of Measure: </label>
+            <label for='title'>Direction: </label>
             <input
               type='text'
-              name='unit'
-              placeholder='cup, tbsp, tsp, etc.'
-              value={unit}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </div>
-          <div className='form-line'>
-            <label for='description'>Ingredient: </label>
-            <input
-              type='text'
-              name='item'
-              placeholder='flour, sugar, etc.'
-              value={item}
+              name='direction'
+              placeholder='instructions for this step'
+              value={direction}
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -138,23 +106,23 @@ const SaveIngredients = (props) => {
           <div className='form-line'>
             <div className='center-btn'>
               <button
-                id='more-ingredients-btn'
+                id='more-instructions-btn'
                 type='submit'
-                {...saveIngredientData.amount && saveIngredientData.unit && saveIngredientData.item 
+                {...saveInstructionData.direction 
                   ? { disabled: false } 
                   : { disabled: true }}
               >
-                Enter More Ingredients
+                Enter More Instructions
               </button>
               <button
-                id='enter-directions-btn'
+                id='finalize-recipe-btn'
                 type='submit'
-                {...saveIngredientData.amount && saveIngredientData.unit && saveIngredientData.item 
+                {...saveInstructionData.direction 
                   ? { disabled: false } 
                   : { disabled: true }}
-                  onClick={() => navigate('/instructions')}
+                  onClick={() => navigate('/recipes')}
               >
-                Enter Directions
+                Finalize Recipe
               </button>
 
             </div>
@@ -165,4 +133,4 @@ const SaveIngredients = (props) => {
   );
 };
 
-export default SaveIngredients;
+export default SaveInstructions;

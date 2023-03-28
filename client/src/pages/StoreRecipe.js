@@ -6,7 +6,7 @@ import { SAVE_RECIPE } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
-const SaveRecipe = (props) => {
+const StoreRecipe = (props) => {
   const [saveRecipeData, setSaveRecipeData] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [saveRecipe, { error }] = useMutation(SAVE_RECIPE);
@@ -59,12 +59,12 @@ const SaveRecipe = (props) => {
       event.preventDefault();
       event.stopPropagation();
     }
-    
+    console.log(saveRecipeData);
     try {
       const { data } = await saveRecipe({
         variables: { input: saveRecipeData },
       });
-      console.log(data.saveRecipe._id);
+      console.log(data);
       localStorage.setItem('recipeId', data.saveRecipe._id);
       navigate('/ingredients');
     } catch (err) {
@@ -134,4 +134,4 @@ const SaveRecipe = (props) => {
   );
 };
 
-export default SaveRecipe;
+export default StoreRecipe;

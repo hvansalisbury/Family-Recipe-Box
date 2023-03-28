@@ -14,7 +14,10 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import StoreRecipe from './pages/StoreRecipe'
-import Ingredients from './pages/Ingredients'
+import SaveIngredients from './pages/Ingredients'
+import SaveInstructions from './pages/Instructions';
+import Recipes from './pages/Recipes';
+import Recipe from './pages/Recipe';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -69,7 +72,19 @@ function App() {
             />
             <Route
               path="/ingredients"
-              element={<Ingredients />}
+              element={<SaveIngredients />}
+            />
+            <Route
+              path="/instructions"
+              element={<SaveInstructions />}
+            />
+            <Route
+              path="/recipes"
+              element={<Recipes />}
+            />
+            <Route
+              path="/recipe"
+              element={<Recipe />}
             />
             <Route
               path='*'

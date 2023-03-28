@@ -6,13 +6,60 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      savedBooks {
-        bookId
-        authors
-        image
-        description
+      recipes {
+        _id
         title
-        link
+        description
+        ingredients {
+          amount
+          unit
+          item
+          recipeId
+        }
+        instructions {
+          direction
+          recipeId
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_RECIPES = gql`
+  {
+    recipes {
+      _id
+      title
+      description
+      ingredients {
+        amount
+        unit
+        item
+        recipeId
+      }
+      instructions {
+        direction
+        recipeId
+      }
+    }
+  }
+`;
+
+export const QUERY_RECIPE = gql`
+  query getRecipe($recipeId: ID!) {
+    recipe(recipeId: $recipeId) {
+      _id
+      title
+      description
+      ingredients {
+        amount
+        unit
+        item
+        recipeId
+      }
+      instructions {
+        direction
+        recipeId
       }
     }
   }
