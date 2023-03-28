@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
+import { useNavigate } from 'react-router-dom';
 
 import Auth from '../utils/auth';
 
@@ -12,12 +13,15 @@ const Recipes = () => {
 
   console.log(userData);
 
+  const navigate = useNavigate();
+
   const handleRecipeClick = async (e) => {
     const { target } = e;
     if (target.classList.contains('recipe-card')) {
       const recipeId = target.id; 
       console.log(recipeId);
       localStorage.setItem('recipeId', recipeId);
+      navigate(`/recipe`);
     }
   
   };

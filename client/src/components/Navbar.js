@@ -21,7 +21,7 @@ const AppNavbar = () => {
               <a href="/storerecipe" className="navlink">
                 Store a Recipe
               </a>
-              <a href='/saved' className="navlink">
+              <a href='/recipes' className="navlink">
                 See Your Recipes
               </a>
               <a onClick={Auth.logout} className="navlink">

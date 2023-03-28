@@ -1,20 +1,17 @@
 import React from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { QUERY_RECIPE } from '../utils/queries';
+import '../assets/css/recipe.css'
 
-import Auth from '../utils/auth';
-
-const Recipe = () => {
-  const recipeId = localStorage.getItem('recipeId');
-  console.log(recipeId);
+const Recipes = () => {
   const { loading, data } = useQuery(QUERY_RECIPE, {
-    variables: { recipeId: recipeId }
+    variables: { recipeId: localStorage.getItem('recipeId') },
   });
 
-console.log(data.recipe);
+  console.log(data)
 
-const ingredients = data?.recipe.ingredients || {};
-const instructions = data?.recipe.instructions || {};
+  const ingredientData = data?.recipe.ingredients || {};
+  const instructionData = data?.recipe.instructions || {};
 
   if (loading) {
     return <h2>LOADING...</h2>;
@@ -22,30 +19,38 @@ const instructions = data?.recipe.instructions || {};
 
   return (
     <>
-      <div>
-        <section>
-        <h2>{data.recipe.title}</h2>
-        <div>{data.recipe.description}</div>
-          {ingredients.map((ingredient) => {
-            return (
-              <div className='ingredient-card'>
-                <div>{ingredient.amount} {ingredient.unit} - {ingredient.item}</div>
-              </div>
-            )
-          })}
-          {instructions.map((instruction) => {
-            return (
-              <div className='instruction-card'>
-                <div>{instructions.indexOf(instruction) + 1}. {instruction.direction}</div>
-              </div>
-            )
-          })}
+      <div className='recipe-section'>
+        <section className='recipe-card'>
+          <aside>
+            <div className='card-heading'>
+              <h2>{data.recipe.title}</h2>
+              <p>{data.recipe.description}</p>
+            </div>
+            <div className='ingredients-card'>
+              <h4>INGREDIENTS</h4>
+              {ingredientData.map((ingredient) => {
+                return (
+                  <div>
+                    {ingredient.amount} {ingredient.unit} - {ingredient.item}
+                  </div>
+                )
+              })}
+            </div>
+          </aside>
+          <div className='instructions-card'>
+            <h4>INSTRUCTIONS</h4>
+            <ol>
+            {instructionData.map((instruction) => {
+              return (
+                <li>{instruction.direction}</li>
+              )
+            })}
+            </ol>
+          </div>
         </section>
-
-
-      </div >
+      </div>
     </>
   );
 };
 
-export default Recipe;
+export default Recipes;
