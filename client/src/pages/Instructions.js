@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { SAVE_INSTRUCTION } from '../utils/mutations';
+import { QUERY_RECIPE } from '../utils/queries';
 
-import Auth from '../utils/auth';
+import '../assets/css/storerecipe.css'
 
 const SaveInstructions = (props) => {
+  const { loading, data } = useQuery(QUERY_RECIPE, {
+    variables: { recipeId: localStorage.getItem('recipeId') },
+  });
+
   const [saveInstructionData, setSaveInstructionData] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [saveInstruction, { error }] = useMutation(SAVE_INSTRUCTION);
@@ -22,7 +27,7 @@ const SaveInstructions = (props) => {
 
     if (inputType === 'direction') {
       setDirection(inputValue);
-    } 
+    }
 
     setSaveInstructionData({ ...saveInstructionData, [inputType]: inputValue });
   };
@@ -31,10 +36,10 @@ const SaveInstructions = (props) => {
     const { target } = e;
     const inputType = target.name;
     const inputValue = target.value;
-    
+
     inputValue === ''
-    ? setErrorMessage(`${inputType} is required!`)
-    : setErrorMessage('')
+      ? setErrorMessage(`${inputType} is required!`)
+      : setErrorMessage('')
   };
 
   useEffect(() => {
@@ -46,8 +51,8 @@ const SaveInstructions = (props) => {
   }, [error]);
 
   const navigate = useNavigate();
-  
-  const handleFormSubmit = async (event) => {
+
+  const handleFormSubmit = async (event, withNavigate = false) => {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -57,29 +62,60 @@ const SaveInstructions = (props) => {
     }
     const recipeid = localStorage.getItem('recipeId');
     saveInstructionData.recipeId = recipeid;
-    const input = {input: saveInstructionData};
-    console.log(input);
+    const input = { input: saveInstructionData };
+
     try {
       const { data } = await saveInstruction({
         variables: { ...input },
       });
       console.log(data);
+      if (withNavigate && data) {
+        localStorage.removeItem('recipeId');
+        navigate('/recipes');
+      };
+
     } catch (err) {
       setErrorMessage('Unable to save ingredients. Please try again.')
       console.error(err);
     }
-    
-    setSaveInstructionData({
-      direction: '',
-    });
-    setDirection('');
+
+    if (!withNavigate) {
+      setSaveInstructionData({
+        direction: '',
+      });
+      setDirection('');
+    };
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
   return (
     <>
       <section className='storerecipe-section'>
+        <div className='recipe-details'>
+          <h2>{data.recipe?.title}</h2>
+          <p>{data?.recipe?.description}</p>
+          {(data.recipe.ingredients.length > 0)
+            ? <h4>Ingredients</h4>
+            : ''}
+          {data.recipe.ingredients.map((ingredient) => {
+            return (
+              <div>{ingredient.amount} {ingredient.unit} {ingredient.item}</div>
+            )
+          })}
+          {(data.recipe.instructions.length > 0)
+            ? <h4>Instructions</h4>
+            : ''}
+          {data.recipe.instructions.map((instruction) => {
+            return (
+              <div>{instruction.direction}</div>
+            )
+          })}
+        </div>
         <h2>Add Instructions</h2>
-        <form className='form' onSubmit={handleFormSubmit}>
+        <form className='form'>
           {errorMessage && (
             <div
               id='error-message'
@@ -108,19 +144,20 @@ const SaveInstructions = (props) => {
               <button
                 id='more-instructions-btn'
                 type='submit'
-                {...saveInstructionData.direction 
-                  ? { disabled: false } 
+                {...saveInstructionData.direction
+                  ? { disabled: false }
                   : { disabled: true }}
+                onClick={handleFormSubmit}
               >
                 Enter More Instructions
               </button>
               <button
                 id='finalize-recipe-btn'
                 type='submit'
-                {...saveInstructionData.direction 
-                  ? { disabled: false } 
+                {...saveInstructionData.direction
+                  ? { disabled: false }
                   : { disabled: true }}
-                  onClick={() => navigate('/recipes')}
+                onClick={(event) => handleFormSubmit(event, true)}
               >
                 Finalize Recipe
               </button>

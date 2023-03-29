@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { SAVE_INGREDIENT } from '../utils/mutations';
+import { QUERY_RECIPE } from '../utils/queries';
 
-import Auth from '../utils/auth';
+import '../assets/css/storerecipe.css'
 
 const SaveIngredients = (props) => {
+  const { loading, data } = useQuery(QUERY_RECIPE, {
+    variables: { recipeId: localStorage.getItem('recipeId') },
+  });
+
   const [saveIngredientData, setSaveIngredientData] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [saveIngredient, { error }] = useMutation(SAVE_INGREDIENT);
@@ -37,10 +42,10 @@ const SaveIngredients = (props) => {
     const { target } = e;
     const inputType = target.name;
     const inputValue = target.value;
-    
+
     inputValue === ''
-    ? setErrorMessage(`${inputType} is required!`)
-    : setErrorMessage('')
+      ? setErrorMessage(`${inputType} is required!`)
+      : setErrorMessage('')
   };
 
   useEffect(() => {
@@ -52,8 +57,8 @@ const SaveIngredients = (props) => {
   }, [error]);
 
   const navigate = useNavigate();
-  
-  const handleFormSubmit = async (event) => {
+
+  const handleFormSubmit = async (event, withNavigate = false) => {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -63,33 +68,53 @@ const SaveIngredients = (props) => {
     }
     const recipeid = localStorage.getItem('recipeId');
     saveIngredientData.recipeId = recipeid;
-    const input = {input: saveIngredientData};
-    console.log(input);
+    const input = { input: saveIngredientData };
+
     try {
       const { data } = await saveIngredient({
         variables: { ...input },
       });
       console.log(data);
+      if (withNavigate && data) {
+        navigate('/instructions');
+      }
     } catch (err) {
       setErrorMessage('Unable to save ingredients. Please try again.')
       console.error(err);
     }
-    
-    setSaveIngredientData({
-      unit: '',
-      amount: '',
-      item: '',
-    });
-    setAmount('');
-    setUnit('');
-    setItem('');
+
+    if (!withNavigate) {
+      setSaveIngredientData({
+        unit: '',
+        amount: '',
+        item: '',
+      });
+      setAmount('');
+      setUnit('');
+      setItem('');
+    };
   };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       <section className='storerecipe-section'>
+        <div className='recipe-details'>
+          <h2>{data.recipe?.title}</h2>
+          <p>{data?.recipe?.description}</p>
+          {(data.recipe.ingredients.length > 0)
+            ? <h4>Ingredients</h4>
+            : ''}
+          {data.recipe.ingredients.map((ingredient) => {
+            return (
+              <div>{ingredient.amount} {ingredient.unit} {ingredient.item}</div>
+            )
+          })}
+        </div>
         <h2>Add Ingredient</h2>
-        <form className='form' onSubmit={handleFormSubmit}>
+        <form className='storerecipe-form'>
           {errorMessage && (
             <div
               id='error-message'
@@ -102,7 +127,7 @@ const SaveIngredients = (props) => {
               {errorMessage}
             </div>
           )}
-          <div className='form-line'>
+          <div className='storerecipe-formline'>
             <label for='title'>Amount: </label>
             <input
               type='number'
@@ -113,7 +138,7 @@ const SaveIngredients = (props) => {
               onBlur={handleBlur}
             />
           </div>
-          <div className='form-line'>
+          <div className='storerecipe-formline'>
             <label for='description'>Unit of Measure: </label>
             <input
               type='text'
@@ -124,7 +149,7 @@ const SaveIngredients = (props) => {
               onBlur={handleBlur}
             />
           </div>
-          <div className='form-line'>
+          <div className='storerecipe-formline'>
             <label for='description'>Ingredient: </label>
             <input
               type='text'
@@ -135,24 +160,24 @@ const SaveIngredients = (props) => {
               onBlur={handleBlur}
             />
           </div>
-          <div className='form-line'>
+          <div className='storerecipe-formline'>
             <div className='center-btn'>
               <button
                 id='more-ingredients-btn'
                 type='submit'
-                {...saveIngredientData.amount && saveIngredientData.unit && saveIngredientData.item 
-                  ? { disabled: false } 
+                {...saveIngredientData.amount && saveIngredientData.unit && saveIngredientData.item
+                  ? { disabled: false }
                   : { disabled: true }}
+                onClick={handleFormSubmit}
               >
                 Enter More Ingredients
               </button>
               <button
                 id='enter-directions-btn'
-                type='submit'
-                {...saveIngredientData.amount && saveIngredientData.unit && saveIngredientData.item 
-                  ? { disabled: false } 
+                {...saveIngredientData.amount && saveIngredientData.unit && saveIngredientData.item
+                  ? { disabled: false }
                   : { disabled: true }}
-                  onClick={() => navigate('/instructions')}
+                onClick={(event) => handleFormSubmit(event, true)}
               >
                 Enter Directions
               </button>

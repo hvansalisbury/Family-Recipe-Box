@@ -1,11 +1,13 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { QUERY_RECIPE } from '../utils/queries';
+import { useParams } from 'react-router-dom';
 import '../assets/css/recipe.css'
 
 const Recipes = () => {
+  const { recipeId } = useParams();
   const { loading, data } = useQuery(QUERY_RECIPE, {
-    variables: { recipeId: localStorage.getItem('recipeId') },
+    variables: { recipeId: recipeId },
   });
 
   console.log(data)

@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { SAVE_RECIPE } from '../utils/mutations';
 
-import Auth from '../utils/auth';
+import '../assets/css/storerecipe.css'
+
+import auth from '../utils/auth';
 
 const StoreRecipe = (props) => {
   const [saveRecipeData, setSaveRecipeData] = useState([]);
@@ -84,7 +86,7 @@ const StoreRecipe = (props) => {
     <>
       <section className='storerecipe-section'>
         <h2>Store your recipe</h2>
-        <form className='form' onSubmit={handleFormSubmit}>
+        <form className='storerecipe-form' onSubmit={handleFormSubmit}>
           {errorMessage && (
             <div
               id='error-message'
@@ -97,7 +99,7 @@ const StoreRecipe = (props) => {
               {errorMessage}
             </div>
           )}
-          <div className='form-line'>
+          <div className='storerecipe-formline'>
             <label for='title'>Title: </label>
             <input
               type='text'
@@ -108,17 +110,18 @@ const StoreRecipe = (props) => {
               onBlur={handleBlur}
             />
           </div>
-          <div className='form-line'>
+          <div className='storerecipe-formline'>
             <label for='description'>Description: </label>
-            <input
+            <textarea
               type='text'
               name='description'
               placeholder='Recipe Description'
               value={description}
               onChange={handleChange}
+              rows='4'
             />
           </div>
-          <div className='form-line'>
+          <div className='storerecipe-formline'>
             <div className='center-btn'>
               <button
                 type='submit'

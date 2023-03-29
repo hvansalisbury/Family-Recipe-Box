@@ -1,0 +1,30 @@
+.recipes-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100%;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.recipes-section {
+  display: flex;
+  width: 80%;
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+.recipe-card-basic {
+  display: table-cell;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 1em;
+  width: 40%;
+  height: max-content;
+  padding: 1rem;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}

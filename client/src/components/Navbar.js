@@ -5,33 +5,30 @@ import '../assets/css/navbar.css'
 import Auth from '../utils/auth';
 
 const AppNavbar = () => {
-  // set modal display state
-  const [showModal, setShowModal] = useState(false);
-
   return (
     <>
       <header>
-        <a className='heading' as={Link} to='/'>
+        <Link className='heading' to='/'>
           Family Recipe Box
-        </a>
+        </Link>
         <nav className=''>
 
           {Auth.loggedIn() ? (
             <>
-              <a href="/storerecipe" className="navlink">
+              <Link to="/storerecipe" className="navlink">
                 Store a Recipe
-              </a>
-              <a href='/recipes' className="navlink">
+              </Link>
+              <Link to='/recipes' className="navlink">
                 See Your Recipes
-              </a>
+              </Link>
               <a onClick={Auth.logout} className="navlink">
                 Logout
               </a>
             </>
           ) : (
-            <a href="/login" className="navlink">
+            <Link to="/login" className="navlink">
               Login/Sign Up
-            </a>
+            </Link>
           )}
         </nav>
       </header>

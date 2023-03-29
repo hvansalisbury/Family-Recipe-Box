@@ -83,7 +83,7 @@ function App() {
               element={<Recipes />}
             />
             <Route
-              path="/recipe"
+              path="/recipes/:recipeId"
               element={<Recipe />}
             />
             <Route

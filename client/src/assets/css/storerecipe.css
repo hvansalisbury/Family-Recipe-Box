@@ -1,0 +1,49 @@
+.storerecipe-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.storerecipe-form {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1em;  
+}
+
+.storerecipe-formline {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.storerecipe-formline label {
+  width: 15%;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.storerecipe-formline input {
+  width: 85%;
+  margin-right: 5%;
+}
+
+.storerecipe-formline textarea {
+  width: 85%;
+  margin-right: 5%;
+}
+
+.recipe-details {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1em;
+  align-items: center;
+  margin-bottom: 1em;
+  width: 60%;
+}
