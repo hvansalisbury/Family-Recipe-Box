@@ -6,6 +6,7 @@ import validateEmail from '../utils/validateEmail';
 import '../assets/css/login.css'
 
 import Auth from '../utils/auth';
+import { Link } from 'react-router-dom';
 
 const Login = (props) => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
@@ -141,9 +142,9 @@ const Login = (props) => {
           </div>
         </form>
         <div className='signup-link'>
-          <a href='/signup'>
+          <Link to='/signup'>
             signup
-          </a>
+          </Link>
         </div>
       </section>
     </>
