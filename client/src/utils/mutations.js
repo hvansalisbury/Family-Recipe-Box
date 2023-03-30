@@ -103,3 +103,23 @@ mutation deleteRecipe($recipeId: ID!) {
   }
 }
 `;
+
+export const EDIT_RECIPE = gql`
+mutation editRecipe($recipeId: ID!, $input: RecipeInput!) {
+  editRecipe(_id: $recipeId, input: $input) {
+    _id
+    title
+    description
+    ingredients {
+      amount
+      unit
+      item
+      recipeId
+    }
+    instructions {
+      direction
+      recipeId
+    }
+  }
+}
+`;

@@ -22,11 +22,132 @@
   background: rgba(255, 255, 255, 0.7);
 }
 
-.editinstructions-card {
-  width: 75%;
+.editrecipe-basic{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.editrecipe-formline {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.editrecipe-formline label {
+  width: 15%;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.editrecipe-formline input,
+.editrecipe-formline textarea {
+  width: 85%;
+  text-align: left;
+  margin-right: 5%;
+}
+
+.editingredients-card {
+  width: 100%;
   height: 100%;
-  display: table-cell;
-  padding-left: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.amount-section {
+  display: flex;
+  width: 20%;
+}
+
+.amount-section label {
+  width: 50%;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.amount-section input {
+  width: 50%;
+  text-align: left;
+  margin-right: 1em;
+}
+
+.unit-section {
+  display: flex;
+  width: 40%;
+}
+
+.unit-section label {
+  width: 30%;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.unit-section input {
+  width: 70%;
+  text-align: left;
+  margin-right: 1em;
+}
+
+.ingredient-section {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+
+.ingredient-section label {
+  width: 30%;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.ingredient-section input {
+  width: 70%;
+  text-align: left;
+  margin-right: 1em;
+}
+
+
+.editinstructions-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editinstructions-card ol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 0;
+  width: 100%;
+}
+
+.editrecipe-formline li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+.editrecipe-formline li label {
+  width: 15%;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.editrecipe-formline li textarea {
+  width: 85%;
+  text-align: left;
+  margin-right: 5%;
 }
 
 .card-heading {

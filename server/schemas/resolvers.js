@@ -114,7 +114,7 @@ const resolvers = {
 
       // throw new AuthenticationError('You need to be logged in!');
     },
-    updateRecipe: async (parent, { recipeId, input }, context) => {
+    editRecipe: async (parent, { recipeId, input }, context) => {
       if (context.user) {
         console.log(recipeId);
         console.log(input);
