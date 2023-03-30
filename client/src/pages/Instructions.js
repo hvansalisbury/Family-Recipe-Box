@@ -115,7 +115,7 @@ const SaveInstructions = (props) => {
           })}
         </div>
         <h2>Add Instructions</h2>
-        <form className='form'>
+        <form className='storerecipe-form'>
           {errorMessage && (
             <div
               id='error-message'
@@ -128,9 +128,10 @@ const SaveInstructions = (props) => {
               {errorMessage}
             </div>
           )}
-          <div className='form-line'>
+          <div className='storerecipe-formline'>
             <label for='title'>Direction: </label>
-            <input
+            <textarea
+              rows='4'
               type='text'
               name='direction'
               placeholder='instructions for this step'
@@ -139,8 +140,8 @@ const SaveInstructions = (props) => {
               onBlur={handleBlur}
             />
           </div>
-          <div className='form-line'>
-            <div className='center-btn'>
+          <div className='storerecipe-formline'>
+            <div className='center-button'>
               <button
                 id='more-instructions-btn'
                 type='submit'

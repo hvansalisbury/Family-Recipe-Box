@@ -161,7 +161,7 @@ const SaveIngredients = (props) => {
             />
           </div>
           <div className='storerecipe-formline'>
-            <div className='center-btn'>
+            <div className='center-button'>
               <button
                 id='more-ingredients-btn'
                 type='submit'

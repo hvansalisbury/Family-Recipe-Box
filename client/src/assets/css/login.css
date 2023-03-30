@@ -1,8 +1,12 @@
 .login-section {
-  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.login-section h2 {
+  margin-top: 1em;
+  -webkit-text-stroke: .5px whitesmoke;
 }
 
 .form {
@@ -10,6 +14,8 @@
   border-radius: 5px;
   padding: 1rem;
   width: 50%;
+  background-color: whitesmoke;
+  background: rgba(255, 255, 255, .7)  
 }
 
 .form-line {
@@ -17,18 +23,19 @@
   margin-bottom: 1rem;
 }
 
-.form-line:first-of-type{
+.form-line:first-of-type {
   margin-top: 1rem;
 }
 
 .form-line label {
   text-align: end;
-  width: 25%;
+  width: 15%;
   padding-right: 1em;
 }
 
 .form-line input {
-  width: 75%;
+  width: 85%;
+  margin-right: 5%;
 }
 
 .center-btn {
@@ -52,4 +59,46 @@
 
 .hidden {
   display: none;
+}
+
+.signup-link,
+.login-link {
+  margin-top: 1em;
+  font-weight: 700;
+}
+
+.center-button {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.center-button button {
+  padding: .25em 1.5em;
+  border-radius: 5px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(grey), to(white));
+  -webkit-box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+  -moz-box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+  box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+}
+
+.center-button button:hover {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(grey));
+  transition: .4s;
+}
+
+.center-button button:active {
+  background-image: linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
+  background-image: -moz-linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
+
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, rgb(88,154,204)),
+      color-stop(1, rgb(90,150,199))
+  );
 }

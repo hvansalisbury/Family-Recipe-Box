@@ -129,7 +129,7 @@ const Login = (props) => {
             />
           </div>
           <div className='form-line'>
-            <div className='center-btn'>
+            <div className='center-button'>
               <button
                 // disabled
                 type='submit'
@@ -140,8 +140,8 @@ const Login = (props) => {
             </div>
           </div>
         </form>
-        <div>
-          <a className='signup-link' href='/signup'>
+        <div className='signup-link'>
+          <a href='/signup'>
             signup
           </a>
         </div>

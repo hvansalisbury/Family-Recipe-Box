@@ -84,20 +84,22 @@ export const SAVE_INSTRUCTION = gql`
   }
 `;
 
-export const REMOVE_BOOK = gql`
-  mutation removeBook($bookId: ID!) {
-    removeBook(bookId: $bookId) {
-      _id
-      username
-      email
-      savedBooks {
-        bookId
-        authors
-        image
-        description
-        title
-        link
-      }
+export const DELETE_RECIPE = gql`
+mutation deleteRecipe($recipeId: ID!) {
+  deleteRecipe(_id: $recipeId) {
+    _id
+    title
+    description
+    ingredients {
+      amount
+      unit
+      item
+      recipeId
+    }
+    instructions {
+      direction
+      recipeId
     }
   }
+}
 `;

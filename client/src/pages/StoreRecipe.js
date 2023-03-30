@@ -122,7 +122,7 @@ const StoreRecipe = (props) => {
             />
           </div>
           <div className='storerecipe-formline'>
-            <div className='center-btn'>
+            <div className='center-button'>
               <button
                 type='submit'
                 {...saveRecipeData.title && saveRecipeData.description ? { disabled: false } : { disabled: true }}

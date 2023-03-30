@@ -4,7 +4,7 @@ import { QUERY_RECIPE } from '../utils/queries';
 import { useParams } from 'react-router-dom';
 import '../assets/css/recipe.css'
 
-const Recipes = () => {
+const Recipe = () => {
   const { recipeId } = useParams();
   const { loading, data } = useQuery(QUERY_RECIPE, {
     variables: { recipeId: recipeId },
@@ -55,4 +55,4 @@ const Recipes = () => {
   );
 };
 
-export default Recipes;
+export default Recipe;

@@ -144,7 +144,7 @@ const Signup = (props) => {
             />
           </div>
           <div className='form-line'>
-            <div className='center-btn'>
+            <div className='center-button'>
               <button
                 type='submit'
                 {...userFormData.email && userFormData.password ? { disabled: false } : { disabled: true }}
@@ -154,8 +154,8 @@ const Signup = (props) => {
             </div>
           </div>
         </form>
-        <div>
-          <a className='signup-link' href='/login'>
+        <div className='login-link'>
+          <a href='/login'>
             login
           </a>
         </div>

@@ -98,27 +98,27 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
-    removeRecipe: async (_, { id }, context) => {
-      if (context.user) {
-        console.log(id);
-        const deletedRecipe = await Recipe.findByIdAndDelete(id);
+    deleteRecipe: async (parent, { _id }, context) => {
+      // if (context.user) {
+        console.log(_id);
+        const deletedRecipe = await Recipe.findByIdAndDelete(_id);
 
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { recipes: id } },
+          { $pull: { recipes: _id } },
           { new: true }
         );
         console.log(updatedUser);
-        return deletedRecipe;
-      }
+        return updatedUser;
+      // }
 
-      throw new AuthenticationError('You need to be logged in!');
+      // throw new AuthenticationError('You need to be logged in!');
     },
-    updateRecipe: async (parent, { id, input }, context) => {
+    updateRecipe: async (parent, { recipeId, input }, context) => {
       if (context.user) {
-        console.log(id);
+        console.log(recipeId);
         console.log(input);
-        const updatedRecipe = await Recipe.findByIdAndUpdate(id, input);
+        const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, input);
         return updatedRecipe;
       }
 

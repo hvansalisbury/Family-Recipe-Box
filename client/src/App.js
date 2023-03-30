@@ -9,7 +9,6 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import Landing from './pages/Landing';
-import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -18,6 +17,33 @@ import SaveIngredients from './pages/Ingredients'
 import SaveInstructions from './pages/Instructions';
 import Recipes from './pages/Recipes';
 import Recipe from './pages/Recipe';
+import EditRecipe from './pages/EditRecipe';
+
+import macarons from './assets/images/pexels-ylanite-koppens-2014693.jpg';
+import tortellini from './assets/images/pexels-karolina-grabowska-4039609.jpg';
+import calzone from './assets/images/pexels-karolina-grabowska-4084930.jpg';
+import knife from './assets/images/pexels-lukas-349609.jpg';
+import pizza from './assets/images/pexels-eneida-nieves-905847.jpg';
+
+const images = [
+  {"image": macarons, "alt": "ylanite-koppens-macarons"}, 
+  {"image": tortellini, "alt": "karolina-grabowska-tottelini"}, 
+  {"image": calzone, "alt": "karolina-grabowska-calzone"},
+  {"image": knife, "alt": "lukas-knife"}, 
+  {"image": pizza, "alt": "eneida-nieves-pizza"}
+]
+
+const randomImage = images[Math.floor(Math.random()*images.length)];
+
+const styles = {
+  image: {
+    height: 'calc(100vh - 50px)',
+    width: '100%',
+    backgroundImage: `url(${randomImage.image})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+}
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -49,14 +75,11 @@ function App() {
       <Router>
         <>
           <Navbar />
+          <main style={styles.image} alt={randomImage.alt}>
           <Routes>
             <Route
               path="/"
               element={<Landing />}
-            />
-            <Route
-              path="/saved"
-              element={<SavedBooks />}
             />
             <Route
               path="/login"
@@ -87,10 +110,15 @@ function App() {
               element={<Recipe />}
             />
             <Route
+              path="/editrecipe/:recipeId"
+              element={<EditRecipe />}
+            />
+            <Route
               path='*'
               element={<h1 className="display-2">Wrong page!</h1>}
             />
           </Routes>
+          </main>
         </>
       </Router>
     </ApolloProvider>
