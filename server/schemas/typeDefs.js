@@ -67,7 +67,7 @@ const typeDefs = gql`
     saveIngredient(input: IngredientInput!): Recipe
     saveInstruction(input: InstructionInput!): Recipe
     deleteRecipe(_id: ID!): Recipe
-    EditRecipe(recipeId: ID!, input: RecipeInput!): Recipe
+    editRecipe(recipeId: ID!, input: RecipeInput!): Recipe
   }
 `;
 
