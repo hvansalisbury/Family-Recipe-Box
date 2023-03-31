@@ -155,9 +155,9 @@ const Signup = (props) => {
           </div>
         </form>
         <div className='login-link'>
-          <a href='/login'>
+          <Link to='/login'>
             login
-          </a>
+          </Link>
         </div>
       </section>
     </>
