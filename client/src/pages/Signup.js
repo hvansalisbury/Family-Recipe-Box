@@ -6,6 +6,7 @@ import validateEmail from '../utils/validateEmail';
 import '../assets/css/login.css'
 
 import Auth from '../utils/auth';
+import { Link } from 'react-router-dom';
 
 const Signup = (props) => {
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
