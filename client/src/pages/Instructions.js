@@ -16,18 +16,12 @@ const SaveInstructions = (props) => {
   const [showAlert, setShowAlert] = useState(false);
   const [saveInstruction, { error }] = useMutation(SAVE_INSTRUCTION);
 
-  const [direction, setDirection] = useState('');
-
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { target } = e;
     const inputType = target.name;
     const inputValue = target.value;
-
-    if (inputType === 'direction') {
-      setDirection(inputValue);
-    }
 
     setSaveInstructionData({ ...saveInstructionData, [inputType]: inputValue });
   };
@@ -68,7 +62,6 @@ const SaveInstructions = (props) => {
       const { data } = await saveInstruction({
         variables: { ...input },
       });
-      console.log(data);
       if (withNavigate && data) {
         localStorage.removeItem('recipeId');
         navigate('/recipes');
@@ -83,7 +76,6 @@ const SaveInstructions = (props) => {
       setSaveInstructionData({
         direction: '',
       });
-      setDirection('');
     };
   };
 
@@ -100,17 +92,17 @@ const SaveInstructions = (props) => {
           {(data.recipe.ingredients.length > 0)
             ? <h4>Ingredients</h4>
             : ''}
-          {data.recipe.ingredients.map((ingredient) => {
+          {data.recipe.ingredients.map((ingredient, index) => {
             return (
-              <div>{ingredient.amount} {ingredient.unit} {ingredient.item}</div>
+              <div key={index}>{ingredient.amount} {ingredient.unit} {ingredient.item}</div>
             )
           })}
           {(data.recipe.instructions.length > 0)
             ? <h4>Instructions</h4>
             : ''}
-          {data.recipe.instructions.map((instruction) => {
+          {data.recipe.instructions.map((instruction, index) => {
             return (
-              <div>{instruction.direction}</div>
+              <div key={index}>{instruction.direction}</div>
             )
           })}
         </div>
@@ -129,13 +121,13 @@ const SaveInstructions = (props) => {
             </div>
           )}
           <div className='storerecipe-formline'>
-            <label for='title'>Direction: </label>
+            <label htmlFor='direction'>Direction: </label>
             <textarea
               rows='4'
               type='text'
               name='direction'
               placeholder='instructions for this step'
-              value={direction}
+              value={saveInstructionData.direction}
               onChange={handleChange}
               onBlur={handleBlur}
             />

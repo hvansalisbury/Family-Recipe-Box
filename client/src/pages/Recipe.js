@@ -30,9 +30,9 @@ const Recipe = () => {
             </div>
             <div className='ingredients-card'>
               <h4>INGREDIENTS</h4>
-              {ingredientData.map((ingredient) => {
+              {ingredientData.map((ingredient, index) => {
                 return (
-                  <div>
+                  <div key={index}>
                     {ingredient.amount} {ingredient.unit} - {ingredient.item}
                   </div>
                 )

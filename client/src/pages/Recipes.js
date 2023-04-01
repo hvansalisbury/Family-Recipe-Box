@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
@@ -12,8 +12,16 @@ import Auth from '../utils/auth';
 const Recipes = () => {
   const { loading, data, refetch } = useQuery(QUERY_ME);
   const [deleteRecipe, { error }] = useMutation(DELETE_RECIPE);
-  const [showRecipe, setShowRecipe] = useState({});
+  const [showRecipes, setShowRecipes] = useState({});
 
+  useEffect(() => {
+    if (data) {
+      setShowRecipes(data.me);
+      console.log(data.me)
+    }
+  }, [data]);
+
+  
   const handleDeleteRecipe = async (recipeId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -25,16 +33,12 @@ const Recipes = () => {
       const { data } = await deleteRecipe({
         variables: { recipeId },
       });
-      setShowRecipe(data.deleteRecipe);
-      console.log(showRecipe);
-      refetch();
-
+      
+      setShowRecipes(data.deleteRecipe);
     } catch (err) {
       console.error(err);
     }
   };
-
-  const userData = data?.me || {};
 
   const navigate = useNavigate();
 
@@ -45,9 +49,9 @@ const Recipes = () => {
   return (
     <>
       <div className='recipes-container'>
-        <h2>{userData.username}'s recipes</h2>
+        <h2>{showRecipes.username}'s recipes</h2>
         <section className='recipes-section'>
-          {userData.recipes?.map((recipe) => {
+          {showRecipes.recipes?.map((recipe) => {
             return (
               <div className='recipe-card-basic' key={recipe._id} id={recipe._id}>
                 <h4>{recipe.title}</h4>

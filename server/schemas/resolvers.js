@@ -103,7 +103,7 @@ const resolvers = {
     deleteRecipe: async (parent, { _id }, context) => {
       if (context.user) {
         console.log(_id);
-        const deletedRecipe = await Recipe.findByIdAndDelete(_id, { new: true });
+        const deletedRecipe = await Recipe.findByIdAndDelete(_id);
 
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },

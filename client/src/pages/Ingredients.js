@@ -16,24 +16,12 @@ const SaveIngredients = (props) => {
   const [showAlert, setShowAlert] = useState(false);
   const [saveIngredient, { error }] = useMutation(SAVE_INGREDIENT);
 
-  const [unit, setUnit] = useState('');
-  const [amount, setAmount] = useState('');
-  const [item, setItem] = useState('');
-
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { target } = e;
     const inputType = target.name;
     const inputValue = target.value;
-
-    if (inputType === 'unit') {
-      setUnit(inputValue);
-    } else if (inputType === 'amount') {
-      setAmount(inputValue);
-    } else {
-      setItem(inputValue);
-    };
 
     setSaveIngredientData({ ...saveIngredientData, [inputType]: inputValue });
   };
@@ -89,9 +77,6 @@ const SaveIngredients = (props) => {
         amount: '',
         item: '',
       });
-      setAmount('');
-      setUnit('');
-      setItem('');
     };
   };
   if (loading) {
@@ -107,9 +92,9 @@ const SaveIngredients = (props) => {
           {(data.recipe.ingredients.length > 0)
             ? <h4>Ingredients</h4>
             : ''}
-          {data.recipe.ingredients.map((ingredient) => {
+          {data.recipe.ingredients.map((ingredient, index) => {
             return (
-              <div>{ingredient.amount} {ingredient.unit} {ingredient.item}</div>
+              <div key={index}>{ingredient.amount} {ingredient.unit} {ingredient.item}</div>
             )
           })}
         </div>
@@ -128,34 +113,34 @@ const SaveIngredients = (props) => {
             </div>
           )}
           <div className='storerecipe-formline'>
-            <label for='title'>Amount: </label>
+            <label htmlFor='title'>Amount: </label>
             <input
               type='number'
               name='amount'
               placeholder='amount of ingredient'
-              value={amount}
+              value={saveIngredientData.amount}
               onChange={handleChange}
               onBlur={handleBlur}
             />
           </div>
           <div className='storerecipe-formline'>
-            <label for='description'>Unit of Measure: </label>
+            <label htmlFor='description'>Unit of Measure: </label>
             <input
               type='text'
               name='unit'
               placeholder='cup, tbsp, tsp, etc.'
-              value={unit}
+              value={saveIngredientData.unit}
               onChange={handleChange}
               onBlur={handleBlur}
             />
           </div>
           <div className='storerecipe-formline'>
-            <label for='description'>Ingredient: </label>
+            <label htmlFor='description'>Ingredient: </label>
             <input
               type='text'
               name='item'
               placeholder='flour, sugar, etc.'
-              value={item}
+              value={saveIngredientData.item}
               onChange={handleChange}
               onBlur={handleBlur}
             />

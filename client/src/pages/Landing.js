@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-import macarons from '../assets/images/pexels-ylanite-koppens-2014693.jpg';
+import React from 'react';
 
 const styles = {
   title: {

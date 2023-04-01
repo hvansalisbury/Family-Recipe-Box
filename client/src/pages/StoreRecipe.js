@@ -13,21 +13,12 @@ const StoreRecipe = (props) => {
   const [showAlert, setShowAlert] = useState(false);
   const [saveRecipe, { error }] = useMutation(SAVE_RECIPE);
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { target } = e;
     const inputType = target.name;
     const inputValue = target.value;
-
-    if (inputType === 'title') {
-      setTitle(inputValue);
-    } else {
-      setDescription(inputValue);
-    };
 
     setSaveRecipeData({ ...saveRecipeData, [inputType]: inputValue });
   };
@@ -76,8 +67,6 @@ const StoreRecipe = (props) => {
       title: '',
       description: '',
     });
-    setTitle('');
-    setDescription('');
   };
 
   return (
@@ -98,23 +87,23 @@ const StoreRecipe = (props) => {
             </div>
           )}
           <div className='storerecipe-formline'>
-            <label for='title'>Title: </label>
+            <label htmlFor='title'>Title: </label>
             <input
               type='text'
               name='title'
               placeholder='Recipe Name'
-              value={title}
+              value={saveRecipeData.title}
               onChange={handleChange}
               onBlur={handleBlur}
             />
           </div>
           <div className='storerecipe-formline'>
-            <label for='description'>Description: </label>
+            <label htmlFor='description'>Description: </label>
             <textarea
               type='text'
               name='description'
               placeholder='Recipe Description'
-              value={description}
+              value={saveRecipeData.description}
               onChange={handleChange}
               rows='4'
             />

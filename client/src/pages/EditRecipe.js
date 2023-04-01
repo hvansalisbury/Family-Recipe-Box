@@ -22,10 +22,6 @@ const EditRecipe = () => {
   const [title, setTitle] = useState(data.recipe.title);
   const [description, setDescription] = useState(data.recipe.description);
 
-  // if (!loading) {
-    // setTitle(data.recipe.title);
-  // }
-
   const ingredientData = data?.recipe.ingredients || {};
   const instructionData = data?.recipe.instructions || {};
 
@@ -109,7 +105,7 @@ const EditRecipe = () => {
           <h2>Edit your recipe</h2>
           <div className='editrecipe-basic'>
             <div className='editrecipe-formline'>
-              <label for='title'>Title: </label>
+              <label htmlFor='title'>Title: </label>
               <input
                 type='text'
                 name='title'
@@ -121,7 +117,7 @@ const EditRecipe = () => {
               />
             </div>
             <div className='editrecipe-formline'>
-              <label for='description'>Description: </label>
+              <label htmlFor='description'>Description: </label>
               <textarea
                 type='text'
                 name='description'
@@ -138,7 +134,7 @@ const EditRecipe = () => {
               return (
                 <div className='editrecipe-formline'>
                   <div className='amount-section'>
-                    <label for='amount'>Amount: </label>
+                    <label htmlFor='amount'>Amount: </label>
                     <input
                       type='number'
                       name='amount'
@@ -149,7 +145,7 @@ const EditRecipe = () => {
                     />
                   </div>
                   <div className='unit-section'>
-                    <label for='unit'>Unit of Measure: </label>
+                    <label htmlFor='unit'>Unit of Measure: </label>
                     <input
                       type='text'
                       name='unit'
@@ -160,7 +156,7 @@ const EditRecipe = () => {
                     />
                   </div>
                   <div className='ingredient-section'>
-                    <label for='item'>Ingredient: </label>
+                    <label htmlFor='item'>Ingredient: </label>
                     <input
                       type='text'
                       name='item'
@@ -181,7 +177,7 @@ const EditRecipe = () => {
                 return (
                   <div className='editrecipe-formline'>
                     <li>
-                      <label for='title'>Direction: </label>
+                      <label htmlFor='title'>Direction: </label>
                       <textarea
                         rows='2'
                         type='text'

@@ -21,14 +21,6 @@ const Signup = (props) => {
     const inputType = target.name;
     const inputValue = target.value;
 
-    if (inputType === 'email') {
-      setUserFormData({...userFormData, email: inputValue});
-    } else if (inputType === 'username') {
-      setUserFormData({...userFormData, username: inputValue});
-    } else {
-      setUserFormData({...userFormData, password: inputValue});
-    };
-
     setUserFormData({ ...userFormData, [inputType]: inputValue });
   };
 
@@ -101,7 +93,7 @@ const Signup = (props) => {
             </div>
           )}
           <div className="form-line">
-            <label for="username">username: </label>
+            <label htmlFor="username">username: </label>
             <input
               placeholder='username'
               name="username"
@@ -114,7 +106,7 @@ const Signup = (props) => {
             />
           </div>
           <div className="form-line">
-            <label for="email">email: </label>
+            <label htmlFor="email">email: </label>
             <input
               placeholder='email'
               name="email"
@@ -127,7 +119,7 @@ const Signup = (props) => {
             />
           </div>
           <div className='form-line'>
-            <label for='password'>password: </label>
+            <label htmlFor='password'>password: </label>
             <input
               placeholder='password'
               name='password'

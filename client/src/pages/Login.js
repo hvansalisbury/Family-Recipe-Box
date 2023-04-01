@@ -14,21 +14,12 @@ const Login = (props) => {
   const [showAlert, setShowAlert] = useState(false);
   const [login, { error }] = useMutation(LOGIN_USER);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { target } = e;
     const inputType = target.name;
     const inputValue = target.value;
-
-    if (inputType === 'email') {
-      setEmail(inputValue);
-    } else {
-      setPassword(inputValue);
-    };
 
     setUserFormData({ ...userFormData, [inputType]: inputValue });
   };
@@ -43,7 +34,7 @@ const Login = (props) => {
       : setErrorMessage('')
     // ternary operator to set error message if email is invalid
     if (inputType === 'email') {
-      !validateEmail(email)
+      !validateEmail(userFormData.email)
         ? setErrorMessage(`${inputType} is invalid!`)
         : setErrorMessage('')
     };
@@ -104,26 +95,26 @@ const Login = (props) => {
             </div>
           )}
           <div className="form-line">
-            <label for="email">email: </label>
+            <label htmlFor="email">email: </label>
             <input
               placeholder='email'
               name="email"
               required
               type="email"
-              value={email}
+              value={userFormData.email}
               className='email-input'
               onChange={handleChange}
               onBlur={handleBlur}
             />
           </div>
           <div className='form-line'>
-            <label for='password'>password: </label>
+            <label htmlFor='password'>password: </label>
             <input
               placeholder='password'
               name='password'
               required
               type='password'
-              value={password}
+              value={userFormData.password}
               className='password-input'
               onChange={handleChange}
               onBlur={handleBlur}

@@ -88,17 +88,22 @@ export const DELETE_RECIPE = gql`
 mutation deleteRecipe($recipeId: ID!) {
   deleteRecipe(_id: $recipeId) {
     _id
-    title
-    description
-    ingredients {
-      amount
-      unit
-      item
-      recipeId
-    }
-    instructions {
-      direction
-      recipeId
+    username
+    email
+    recipes {
+      _id
+      title
+      description
+      ingredients {
+        amount
+        unit
+        item
+        recipeId
+      }
+      instructions {
+        direction
+        recipeId
+      }
     }
   }
 }
