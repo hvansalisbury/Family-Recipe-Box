@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
@@ -10,11 +10,11 @@ import '../assets/css/recipes.css'
 import Auth from '../utils/auth';
 
 const Recipes = () => {
-  const { loading, data } = useQuery(QUERY_ME);
+  const { loading, data, refetch } = useQuery(QUERY_ME);
   const [deleteRecipe, { error }] = useMutation(DELETE_RECIPE);
+  const [showRecipe, setShowRecipe] = useState({});
 
   const handleDeleteRecipe = async (recipeId) => {
-    console.log(recipeId)
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -25,8 +25,9 @@ const Recipes = () => {
       const { data } = await deleteRecipe({
         variables: { recipeId },
       });
-
-      this.forceUpdate();
+      setShowRecipe(data.deleteRecipe);
+      console.log(showRecipe);
+      refetch();
 
     } catch (err) {
       console.error(err);
@@ -48,7 +49,7 @@ const Recipes = () => {
         <section className='recipes-section'>
           {userData.recipes?.map((recipe) => {
             return (
-              <div className='recipe-card-basic' id={recipe._id}>
+              <div className='recipe-card-basic' key={recipe._id} id={recipe._id}>
                 <h4>{recipe.title}</h4>
                 <p>{recipe.description}</p>
                 <div className='button-box'>

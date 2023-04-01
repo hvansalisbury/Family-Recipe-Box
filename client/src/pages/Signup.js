@@ -14,10 +14,6 @@ const Signup = (props) => {
   const [showAlert, setShowAlert] = useState(false);
   const [addUser, { error }] = useMutation(ADD_USER);
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
@@ -26,11 +22,11 @@ const Signup = (props) => {
     const inputValue = target.value;
 
     if (inputType === 'email') {
-      setEmail(inputValue);
+      setUserFormData({...userFormData, email: inputValue});
     } else if (inputType === 'username') {
-      setUsername(inputValue);
+      setUserFormData({...userFormData, username: inputValue});
     } else {
-      setPassword(inputValue);
+      setUserFormData({...userFormData, password: inputValue});
     };
 
     setUserFormData({ ...userFormData, [inputType]: inputValue });
@@ -46,7 +42,7 @@ const Signup = (props) => {
       : setErrorMessage('')
     // ternary operator to set error message if email is invalid
     if (inputType === 'email') {
-      !validateEmail(email)
+      !validateEmail(userFormData.email)
         ? setErrorMessage(`${inputType} is invalid!`)
         : setErrorMessage('')
     };
@@ -73,7 +69,6 @@ const Signup = (props) => {
       const { data } = await addUser({
         variables: { ...userFormData },
       });
-      console.log(data)
       Auth.login(data.addUser.token);
     } catch (err) {
       setErrorMessage('Unable to sign up. Please try again.')
@@ -112,7 +107,7 @@ const Signup = (props) => {
               name="username"
               required
               type="text"
-              value={username}
+              value={userFormData.username}
               className='username-input'
               onChange={handleChange}
               onBlur={handleBlur}
@@ -125,7 +120,7 @@ const Signup = (props) => {
               name="email"
               required
               type="email"
-              value={email}
+              value={userFormData.email}
               className='email-input'
               onChange={handleChange}
               onBlur={handleBlur}
@@ -138,7 +133,7 @@ const Signup = (props) => {
               name='password'
               required
               type='password'
-              value={password}
+              value={userFormData.password}
               className='password-input'
               onChange={handleChange}
               onBlur={handleBlur}

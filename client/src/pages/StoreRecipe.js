@@ -9,7 +9,7 @@ import '../assets/css/storerecipe.css'
 import auth from '../utils/auth';
 
 const StoreRecipe = (props) => {
-  const [saveRecipeData, setSaveRecipeData] = useState([]);
+  const [saveRecipeData, setSaveRecipeData] = useState({});
   const [showAlert, setShowAlert] = useState(false);
   const [saveRecipe, { error }] = useMutation(SAVE_RECIPE);
 
@@ -60,7 +60,6 @@ const StoreRecipe = (props) => {
       event.preventDefault();
       event.stopPropagation();
     }
-    console.log(saveRecipeData);
     try {
       const { data } = await saveRecipe({
         variables: { input: saveRecipeData },

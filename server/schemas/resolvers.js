@@ -34,7 +34,7 @@ const resolvers = {
       console.log(parent)
       const recipes = await Recipe.find({ _id: { $in: parent.recipes } }).select('-__v');
       return recipes;
-  }
+    }
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -60,17 +60,19 @@ const resolvers = {
       return { token, user };
     },
     saveRecipe: async (parent, { input }, context) => {
-      // if (context.user) {
-        const newRecipe = await Recipe.create(input, { new: true });
-        const updatedUser = await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { recipes: newRecipe._id } },
-          { new: true }
-        );
-        return newRecipe;
-      // }
-
-      // throw new AuthenticationError('You need to be logged in!');
+      console.log(input);
+      console.log(context.user);
+        if (context.user) {
+          const newRecipe = await Recipe.create(input);
+          const updatedUser = await User.findByIdAndUpdate(
+            { _id: context.user._id },
+            { $push: { recipes: newRecipe._id } },
+            { new: true }
+          );
+          console.log(updatedUser);
+          return newRecipe;
+        }
+        throw new AuthenticationError('You need to be logged in!');
     },
     saveIngredient: async (parent, { input }, context) => {
       if (context.user) {

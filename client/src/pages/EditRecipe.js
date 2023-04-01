@@ -18,8 +18,13 @@ const EditRecipe = () => {
 
   console.log(data)
 
+
   const [title, setTitle] = useState(data.recipe.title);
   const [description, setDescription] = useState(data.recipe.description);
+
+  // if (!loading) {
+    // setTitle(data.recipe.title);
+  // }
 
   const ingredientData = data?.recipe.ingredients || {};
   const instructionData = data?.recipe.instructions || {};
