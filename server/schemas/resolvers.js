@@ -117,14 +117,14 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
     editRecipe: async (parent, { recipeId, input }, context) => {
-      if (context.user) {
+      // if (context.user) {
         console.log(recipeId);
         console.log(input);
         const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, input, { new: true });
         return updatedRecipe;
-      }
+      // }
 
-      throw new AuthenticationError('You need to be logged in!');
+      // throw new AuthenticationError('You need to be logged in!');
     },
   },
 };

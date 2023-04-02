@@ -64,3 +64,7 @@
   background-color: transparent;
   color: red;
 }
+
+.button-toggle:hover button {
+  display: flex;
+}

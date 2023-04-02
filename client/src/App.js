@@ -24,13 +24,17 @@ import tortellini from './assets/images/pexels-karolina-grabowska-4039609.jpg';
 import calzone from './assets/images/pexels-karolina-grabowska-4084930.jpg';
 import knife from './assets/images/pexels-lukas-349609.jpg';
 import pizza from './assets/images/pexels-eneida-nieves-905847.jpg';
+import bread from './assets/images/pexels-skyler-ewing-9482665.jpg'
+import burger from './assets/images/pexels-valeria-boltneva-1639562.jpg'
 
 const images = [
   {"image": macarons, "alt": "ylanite-koppens-macarons"}, 
   {"image": tortellini, "alt": "karolina-grabowska-tottelini"}, 
   {"image": calzone, "alt": "karolina-grabowska-calzone"},
   {"image": knife, "alt": "lukas-knife"}, 
-  {"image": pizza, "alt": "eneida-nieves-pizza"}
+  {"image": pizza, "alt": "eneida-nieves-pizza"},
+  {"image": bread, "alt": "skyler-ewing-bread"},
+  {"image": burger, "alt": "valeria-boltneva-burger"}
 ]
 
 const randomImage = images[Math.floor(Math.random()*images.length)];
