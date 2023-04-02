@@ -80,7 +80,7 @@ const Login = (props) => {
     <>
       <section className='login-section'>
         <h2>Login</h2>
-        <form className='form' noValidate validated={validated} onSubmit={handleFormSubmit}>
+        <form className='form' onSubmit={handleFormSubmit}>
           {errorMessage && (
             <div
               id='error-message'

@@ -1,4 +1,4 @@
-.recipe-section{
+.recipe-section {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -40,4 +40,27 @@
   display: flex;
   flex-direction: column;
   width: 100%
+}
+
+.button-toggle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.show {
+  display: flex;
+}
+
+.noshow {
+  display: none;
+}
+
+.button-toggle button {
+  padding: 0;
+  height: fit-content;
+  border: none;
+  background-color: transparent;
+  color: red;
 }
