@@ -121,7 +121,6 @@ const Login = (props) => {
           <div className='form-line'>
             <div className='center-button'>
               <button
-                // disabled
                 type='submit'
                 {...userFormData.email && userFormData.password ? { disabled: false } : { disabled: true }}
               >

@@ -44,6 +44,7 @@ const StoreRecipe = (props) => {
   const navigate = useNavigate();
   
   const handleFormSubmit = async (event) => {
+    console.log(saveRecipeData);
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -55,6 +56,7 @@ const StoreRecipe = (props) => {
       const { data } = await saveRecipe({
         variables: { input: saveRecipeData },
       });
+      console.log(data);
       localStorage.setItem('recipeId', data.saveRecipe._id);
       navigate('/ingredients');
     } catch (err) {

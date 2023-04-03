@@ -61,12 +61,15 @@ const resolvers = {
     },
     saveRecipe: async (parent, { input }, context) => {
       if (context.user) {
-        const newRecipe = await Recipe.create({ input });
+        console.log(input)
+        const newRecipe = await Recipe.create(input);
+        console.log(newRecipe)
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $push: { recipes: newRecipe._id } },
           { new: true }
         );
+        console.log(updatedUser)
         return newRecipe;
       }
       throw new AuthenticationError('You need to be logged in!');
