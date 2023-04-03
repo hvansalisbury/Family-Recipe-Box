@@ -18,6 +18,7 @@ const typeDefs = gql`
   }
 
   type Ingredient {
+    _id: ID!
     amount: String!
     unit: String!
     item: String!
@@ -25,6 +26,7 @@ const typeDefs = gql`
   }
 
   type Instruction {
+    _id: ID!
     direction: String!
     recipeId: String
   }
@@ -60,6 +62,18 @@ const typeDefs = gql`
     instructions: [InstructionInput]
   }
 
+  input EditIngredientInput {
+    amount: String
+    unit: String
+    item: String
+    recipeId: String
+  }
+
+  input EditInstructionInput {
+    direction: String
+    recipeId: String
+  }
+
   type Query {
     me: User
     recipe(recipeId: ID!): Recipe
@@ -75,6 +89,8 @@ const typeDefs = gql`
     saveInstruction(input: InstructionInput!): Recipe
     deleteRecipe(_id: ID!): User
     editRecipe(recipeId: ID!, input: EditRecipeInput!): Recipe
+    editIngredients(recipeId: ID!, input: EditIngredientInput!): Recipe
+    editInstructions(recipeId: ID!, input: EditInstructionInput!): Recipe
   }
 `;
 

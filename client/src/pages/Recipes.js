@@ -58,7 +58,6 @@ const Recipes = () => {
                 <p>{recipe.description}</p>
                 <div className='button-box'>
                   <button onClick={() => navigate(`/recipes/${recipe._id}`)}>View Recipe</button>
-                  <button onClick={() => navigate(`/editrecipe/${recipe._id}`)}>Edit Recipe</button>
                   <button onClick={(recipeId) => handleDeleteRecipe(`${recipe._id}`)}>Delete Recipe</button>
                 </div>
               </div>

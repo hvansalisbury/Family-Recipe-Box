@@ -17,7 +17,6 @@ import SaveIngredients from './pages/Ingredients'
 import SaveInstructions from './pages/Instructions';
 import Recipes from './pages/Recipes';
 import Recipe from './pages/Recipe';
-import EditRecipe from './pages/EditRecipe';
 
 import macarons from './assets/images/pexels-ylanite-koppens-2014693.jpg';
 import tortellini from './assets/images/pexels-karolina-grabowska-4039609.jpg';
@@ -112,10 +111,6 @@ function App() {
             <Route
               path="/recipes/:recipeId"
               element={<Recipe />}
-            />
-            <Route
-              path="/editrecipe/:recipeId"
-              element={<EditRecipe />}
             />
             <Route
               path='*'

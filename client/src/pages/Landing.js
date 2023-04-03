@@ -8,7 +8,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     color: 'whitesmoke',
-    webkitTextStroke: '2px darkslategrey',
+    WebkitTextStroke: '2px darkslategrey',
   },
 }
 

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_RECIPE } from '../utils/queries';
-import { EDIT_RECIPE } from '../utils/mutations';
-import { useParams } from 'react-router-dom';
+import { EDIT_RECIPE, EDIT_INGREDIENT, EDIT_INSTRUCTION } from '../utils/mutations';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../assets/css/recipe.css'
 
 const styles = {
@@ -24,7 +24,9 @@ const Recipe = () => {
   const [modalData, setModalData] = useState({});
   const [modalType, setModalType] = useState();
 
-  const [inputText, setInputText] = useState();
+  let [inputText, setInputText] = useState();
+
+  const navigate = useNavigate();
 
   const [editRecipe, { error }] = useMutation(EDIT_RECIPE);
 
@@ -32,9 +34,16 @@ const Recipe = () => {
   const { loading, data } = useQuery(QUERY_RECIPE, {
     variables: { recipeId: recipeId },
   });
+  const [showRecipe, setShowRecipe] = useState({});
 
-  const ingredientData = data?.recipe.ingredients || {};
-  const instructionData = data?.recipe.instructions || {};
+  useEffect(() => {
+    if (data) {
+      setShowRecipe(data);
+    }
+  }, [data]);
+
+  let ingredientData = data?.recipe.ingredients || {};
+  let instructionData = data?.recipe.instructions || {};
 
   const handleEditClick = async (e) => {
     e.preventDefault();
@@ -43,56 +52,109 @@ const Recipe = () => {
     const targetEl = e.target;
     const parentEl = targetEl.parentNode;
     const editEl = targetEl.previousSibling;
-    const datapath = editEl.getAttribute('datapath');
-
+    const index = editEl.getAttribute('index');
     if (targetEl.classList.contains('title') || targetEl.classList.contains('description')) {
       await setModalType('title-description');
       const name = editEl.getAttribute('name');
-      const value = editEl.textContent;
-      setModalData({ datapath, name, value });
+      const value = editEl.textContent.trim();
+      setModalData({ index, name, value });
     } else if (targetEl.classList.contains('ingredients')) {
       await setModalType('ingredients');
-      const amount = editEl.children[0].textContent;
-      const unit = editEl.children[1].textContent;
-      const item = editEl.children[2].textContent;
-      setModalData({ datapath, amount, unit, item });
+      const amount = editEl.children[0].textContent.trim();
+      const unit = editEl.children[2].textContent.trim();
+      const item = editEl.children[4].textContent.trim();
+      setModalData({ index, amount, unit, item });
     } else if (targetEl.classList.contains('instructions')) {
       await setModalType('instructions');
-      console.log(editEl.textContent)
-      const direction = editEl.textContent;
-      setModalData({ datapath, direction });
+      const direction = editEl.textContent.trim();
+      setModalData({ index, direction });
     };
   };
 
   const handleInputChange = (e) => {
-    const { target } = e;
-    const inputType = target.name;
-    const inputValue = target.value;
-
-    setInputText({[inputType]: inputValue });
+    if (modalType !== 'ingredients') {
+      const { target } = e;
+      const inputType = target.name;
+      const inputValue = target.value;
+      const index = target.getAttribute('index');
+      setInputText({ [inputType]: inputValue, index: index });
+    } else {
+      const { target } = e;
+      const inputType = target.name;
+      const inputValue = target.value;
+      const index = target.getAttribute('index');
+      
+      setInputText({...inputText, [inputType]: inputValue , index: index });
+    }
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    setModalOpen(false);    
+    setModalOpen(false);
 
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
-    console.log(inputText);
+
+    switch (modalType) {
+      case 'title-description':
+        delete inputText.index;
+        break;
+      case 'ingredients':
+        console.log(inputText)
+        let cloneIngredients = JSON.parse(JSON.stringify(showRecipe.recipe.ingredients));
+        console.log(cloneIngredients)
+        for (let i = 0; i < cloneIngredients.length; i++) {
+          Reflect.deleteProperty(cloneIngredients[i], '__typename')
+          Reflect.deleteProperty(cloneIngredients[i], '_id')
+        }
+        console.log(inputText)
+        cloneIngredients[inputText.index].amount = inputText.amount;
+        cloneIngredients[inputText.index].unit = inputText.unit;
+        cloneIngredients[inputText.index].item = inputText.item;
+        inputText = { ingredients: cloneIngredients }
+        console.log(inputText)
+        break;
+      case 'instructions':
+        console.log(inputText)
+        let cloneInstructions = JSON.parse(JSON.stringify(showRecipe.recipe.instructions));
+        for (let i = 0; i < cloneInstructions.length; i++) {
+          Reflect.deleteProperty(cloneInstructions[i], '__typename')
+          Reflect.deleteProperty(cloneInstructions[i], '_id')
+        }
+        cloneInstructions[inputText.index].direction = inputText.direction;
+        inputText = { instructions: cloneInstructions }
+        break;
+      default:
+        return;
+    };
+
     try {
       const { data } = await editRecipe({
         variables: { recipeId: recipeId, input: inputText },
       });
-      
+
+      setShowRecipe(data);
       return data;
-      
+
     } catch (err) {
       console.error(err);
-    }    
-  setInputText({});
+    }
+    setInputText({});
+  };
+
+  const handleAddIngredient = async (e) => {
+    e.preventDefault();
+    localStorage.setItem('recipeId', recipeId);
+    navigate('/ingredients');
+  };
+
+  const handleAddInstruction = async (e) => {
+    e.preventDefault();
+    localStorage.setItem('recipeId', recipeId);
+    navigate('/instructions');
   };
 
   if (loading) {
@@ -109,7 +171,7 @@ const Recipe = () => {
                 className='button-toggle'
                 id='1a'
               >
-                <h2 datapath='input.title' name='title'>{data.recipe.title}</h2>
+                <h2 index='' name='title'>{data.recipe.title}</h2>
                 <button
                   className='title hidden'
                   onClick={handleEditClick}
@@ -121,7 +183,7 @@ const Recipe = () => {
                 className='button-toggle'
                 id='2a'
               >
-                <p datapath='input.description' name='description'>{data.recipe.description}</p>
+                <p index='' name='description'>{data.recipe.description}</p>
                 <button
                   className='description hidden'
                   onClick={handleEditClick}
@@ -139,10 +201,12 @@ const Recipe = () => {
                     className='button-toggle'
                     id={index + 'b'}
                   >
-                    <div datapath={`input.ingredients[${index}]`}>
-                      <span name='amount'>{ingredient.amount}</span>
-                      <span name='unit'>{ingredient.unit}</span> -
-                      <span name='item'>{ingredient.item}</span>
+                    <div index={index}>
+                      <span arrayindex={index} name='amount'>{ingredient.amount}</span>
+                      <span> </span> 
+                      <span arrayindex={index} name='unit'>{ingredient.unit}</span>
+                      <span> - </span>
+                      <span arrayindex={index} name='item'>{ingredient.item}</span>
                     </div>
                     <button
                       className='ingredients hidden'
@@ -153,6 +217,11 @@ const Recipe = () => {
                   </div>
                 )
               })}
+              <div>
+                <button onClick={handleAddIngredient}>
+                  add ingredient
+                </button>
+              </div>
             </div>
           </aside>
           <div className='instructions-card'>
@@ -165,7 +234,7 @@ const Recipe = () => {
                     className='button-toggle'
                     id={index + 'c'}
                   >
-                    <li datapath={`input.instructions[${index}]`}>{instruction.direction}</li>
+                    <li index={index} name='direction'>{instruction.direction}</li>
                     <button
                       className='instructions hidden'
                       onClick={handleEditClick}
@@ -176,6 +245,11 @@ const Recipe = () => {
                 )
               })}
             </ol>
+            <div>
+              <button onClick={handleAddInstruction}>
+                add instruction
+              </button>
+            </div>
           </div>
         </section>
         {modalType === 'title-description' ?
@@ -188,12 +262,12 @@ const Recipe = () => {
             style={styles}
           >
 
-            <form id={modalData.datapath} className='editform' onSubmit={handleFormSubmit}>
+            <form id='title-description-form' className='editform' onSubmit={handleFormSubmit}>
               <h4>Edit {modalData.name}</h4>
               <div className='editformline'>
                 <label className='editformlabel' htmlFor={modalData.name}>{modalData.name}: </label>
-                <input className='editforminput' name={modalData.name} defaultValue={modalData.value} onChange={handleInputChange}/>
-                <button type='submit'>Submit Edit</button>
+                <input index={modalData.index} className='editforminput' name={modalData.name} defaultValue={modalData.value} onChange={handleInputChange} />
+                <button {...inputText ? { disabled: false } : { disabled: true }} type='submit'>Submit Edit</button>
               </div>
             </form>
             <button onClick={() => setModalOpen(false)}>Close</button>
@@ -207,21 +281,21 @@ const Recipe = () => {
               style={styles}
             >
 
-              <form id={modalData.datapath} className='editform' onSubmit={handleFormSubmit}>
+              <form id='ingredients-form' className='editform' onSubmit={handleFormSubmit}>
                 <h4>Edit Ingredient</h4>
                 <div className='editformline'>
                   <label className='editformlabel' htmlFor='amount'>Amount: </label>
-                  <input className='editforminput' name='amount' defaultValue={modalData.amount} onChange={handleInputChange} />
+                  <input type='number' index={modalData.index} className='editforminput' datapath={modalData.datapath + 'amount'} name='amount' defaultValue={modalData.amount} onChange={handleInputChange} />
                 </div>
                 <div className='editformline'>
                   <label className='editformlabel' htmlFor='unit'>Unit: </label>
-                  <input className='editforminput' name='unit' defaultValue={modalData.unit} onChange={handleInputChange} />
+                  <input index={modalData.index} className='editforminput' datapath={modalData.datapath + 'unit'} name='unit' defaultValue={modalData.unit} onChange={handleInputChange} />
                 </div>
                 <div className='editformline'>
                   <label className='editformlabel' htmlFor='item'>Item: </label>
-                  <input className='editforminput' name='item' defaultValue={modalData.item} onChange={handleInputChange} />
+                  <input index={modalData.index} className='editforminput' datapath={modalData.datapath + 'item'} name='item' defaultValue={modalData.item} onChange={handleInputChange} />
                 </div>
-                <button type='submit'>Submit Edits</button>
+                <button {...inputText ? { disabled: false } : { disabled: true }} type='submit'>Submit Edit</button>
               </form>
               <button onClick={() => setModalOpen(false)}>Close Modal</button>
             </Modal>
@@ -234,13 +308,13 @@ const Recipe = () => {
               style={styles}
             >
 
-              <form id={modalData.datapath} className='editform' onSubmit={handleFormSubmit}>
+              <form id='instructions-form' className='editform' onSubmit={handleFormSubmit}>
                 <h4>Edit Direction</h4>
                 <div className='editformline'>
                   <label className='editformlabel' htmlFor='direction'>Direction: </label>
-                  <input className='editforminput' name='direction' defaultValue={modalData.direction} onChange={handleInputChange} />
+                  <input index={modalData.index} className='editforminput' datapath={modalData.datapath + 'direction'} name='direction' defaultValue={modalData.direction} onChange={handleInputChange} />
                 </div>
-                <button type='submit'>Submit Edits</button>
+                <button {...inputText ? { disabled: false } : { disabled: true }} type='submit'>Submit Edit</button>
               </form>
               <button onClick={() => setModalOpen(false)}>Close Modal</button>
             </Modal>

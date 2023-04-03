@@ -11,12 +11,14 @@ export const QUERY_ME = gql`
         title
         description
         ingredients {
+          _id
           amount
           unit
           item
           recipeId
         }
         instructions {
+          _id
           direction
           recipeId
         }
@@ -52,12 +54,14 @@ export const QUERY_RECIPE = gql`
       title
       description
       ingredients {
+        _id
         amount
         unit
         item
         recipeId
       }
       instructions {
+        _id
         direction
         recipeId
       }
