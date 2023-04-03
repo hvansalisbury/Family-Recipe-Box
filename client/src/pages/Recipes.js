@@ -17,7 +17,6 @@ const Recipes = () => {
   useEffect(() => {
     if (data) {
       setShowRecipes(data.me);
-      console.log(data.me)
     }
   }, [data]);
 
