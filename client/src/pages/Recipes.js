@@ -21,7 +21,6 @@ const Recipes = () => {
     }
   }, [data]);
 
-  
   const handleDeleteRecipe = async (recipeId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -41,6 +40,12 @@ const Recipes = () => {
   };
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!Auth.loggedIn()) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   if (loading) {
     return <h2>LOADING...</h2>;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { SAVE_INGREDIENT } from '../utils/mutations';
 import { QUERY_RECIPE } from '../utils/queries';
@@ -79,6 +79,13 @@ const SaveIngredients = (props) => {
       });
     };
   };
+
+  useEffect(() => {
+    if (!Auth.loggedIn()) {
+      navigate("/");
+    }
+  }, [navigate]);
+
   if (loading) {
     return <div>Loading...</div>;
   }

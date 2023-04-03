@@ -6,7 +6,7 @@ import { SAVE_RECIPE } from '../utils/mutations';
 
 import '../assets/css/storerecipe.css'
 
-import auth from '../utils/auth';
+import Auth from '../utils/auth';
 
 const StoreRecipe = (props) => {
   const [saveRecipeData, setSaveRecipeData] = useState({});
@@ -68,6 +68,13 @@ const StoreRecipe = (props) => {
       description: '',
     });
   };
+
+  useEffect(() => {
+    if (!Auth.loggedIn()) {
+      navigate("/");
+    }
+  }, [navigate]);
+
 
   return (
     <>

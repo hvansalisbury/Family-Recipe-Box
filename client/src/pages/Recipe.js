@@ -4,6 +4,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_RECIPE } from '../utils/queries';
 import { EDIT_RECIPE, EDIT_INGREDIENT, EDIT_INSTRUCTION } from '../utils/mutations';
 import { useNavigate, useParams } from 'react-router-dom';
+import Auth from '../utils/auth';
 import '../assets/css/recipe.css'
 
 const styles = {
@@ -156,6 +157,12 @@ const Recipe = () => {
     localStorage.setItem('recipeId', recipeId);
     navigate('/instructions');
   };
+
+  useEffect(() => {
+    if (!Auth.isLoggedIn()) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   if (loading) {
     return <h2>LOADING...</h2>;
