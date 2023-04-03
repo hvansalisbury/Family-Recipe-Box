@@ -8,8 +8,9 @@ import { QUERY_RECIPE } from '../utils/queries';
 import '../assets/css/storerecipe.css'
 
 const SaveInstructions = (props) => {
+  const recipeId = localStorage.getItem('recipeId');
   const { loading, data } = useQuery(QUERY_RECIPE, {
-    variables: { recipeId: localStorage.getItem('recipeId') },
+    variables: { recipeId: recipeId },
   });
 
   const [saveInstructionData, setSaveInstructionData] = useState([]);
@@ -78,6 +79,13 @@ const SaveInstructions = (props) => {
       });
     };
   };
+
+  const handleRecipeClick = (event) => {
+    event.preventDefault();
+    localStorage.removeItem('recipeId');
+    navigate(`/recipes/${recipeId}`);
+  };
+
   
   useEffect(() => {
     if (!Auth.loggedIn()) {
@@ -164,6 +172,11 @@ const SaveInstructions = (props) => {
             </div>
           </div>
         </form>
+        <div>
+          <button onClick={handleRecipeClick}>
+            back to recipe
+          </button>
+        </div>
       </section>
     </>
   );

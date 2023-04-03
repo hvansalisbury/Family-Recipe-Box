@@ -159,7 +159,7 @@ const Recipe = () => {
   };
 
   useEffect(() => {
-    if (!Auth.isLoggedIn()) {
+    if (!Auth.loggedIn()) {
       navigate("/");
     }
   }, [navigate]);
