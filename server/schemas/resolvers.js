@@ -70,76 +70,75 @@ const resolvers = {
         return newRecipe;
       }
       throw new AuthenticationError('You need to be logged in!');
-    }
+    },
+    saveIngredient: async (parent, { input }, context) => {
+      if (context.user) {
+        const updatedRecipe = await Recipe.findByIdAndUpdate(
+          { _id: input.recipeId },
+          { $push: { ingredients: input } },
+          { new: true }
+        );
+
+        return updatedRecipe;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    saveInstruction: async (parent, { input }, context) => {
+      if (context.user) {
+        const updatedRecipe = await Recipe.findByIdAndUpdate(
+          { _id: input.recipeId },
+          { $push: { instructions: input } },
+          { new: true }
+        );
+
+        return updatedRecipe;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    deleteRecipe: async (parent, { _id }, context) => {
+      if (context.user) {
+        console.log(_id);
+        const deletedRecipe = await Recipe.findByIdAndDelete(_id, { new: true });
+
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { recipes: _id } },
+          { new: true }
+        );
+        console.log(updatedUser);
+        return updatedUser;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    editRecipe: async (parent, { recipeId, input }, context) => {
+      if (context.user) {
+        console.log(recipeId);
+        console.log(input);
+        const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, input, { new: true });
+        return updatedRecipe;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    editIngredients: async (parent, { recipeId, input }, context) => {
+      if (context.user) {
+        console.log(recipeId);
+        console.log(input);
+        const deleteIngredients = await Recipe.findOne({ _id: recipeId }, (err, recipe) => {
+          recipe.ingredients = undefined;
+          recipe.save();
+        },
+          { new: true });
+        const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, input, { new: true });
+        return updatedRecipe;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
   },
-  saveIngredient: async (parent, { input }, context) => {
-    if (context.user) {
-      const updatedRecipe = await Recipe.findByIdAndUpdate(
-        { _id: input.recipeId },
-        { $push: { ingredients: input } },
-        { new: true }
-      );
-
-      return updatedRecipe;
-    }
-
-    throw new AuthenticationError('You need to be logged in!');
-  },
-  saveInstruction: async (parent, { input }, context) => {
-    if (context.user) {
-      const updatedRecipe = await Recipe.findByIdAndUpdate(
-        { _id: input.recipeId },
-        { $push: { instructions: input } },
-        { new: true }
-      );
-
-      return updatedRecipe;
-    }
-
-    throw new AuthenticationError('You need to be logged in!');
-  },
-  deleteRecipe: async (parent, { _id }, context) => {
-    if (context.user) {
-      console.log(_id);
-      const deletedRecipe = await Recipe.findByIdAndDelete(_id, { new: true });
-
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $pull: { recipes: _id } },
-        { new: true }
-      );
-      console.log(updatedUser);
-      return updatedUser;
-    }
-
-    throw new AuthenticationError('You need to be logged in!');
-  },
-  editRecipe: async (parent, { recipeId, input }, context) => {
-    // if (context.user) {
-    console.log(recipeId);
-    console.log(input);
-    const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, input, { new: true });
-    return updatedRecipe;
-    // }
-
-    // throw new AuthenticationError('You need to be logged in!');
-  },
-  editIngredients: async (parent, { recipeId, input }, context) => {
-    if (context.user) {
-      console.log(recipeId);
-      console.log(input);
-      const deleteIngredients = await Recipe.findOne({ _id: recipeId }, (err, recipe) => {
-        recipe.ingredients = undefined;
-        recipe.save();
-      },
-        { new: true });
-      const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, input, { new: true });
-      return updatedRecipe;
-    }
-
-    throw new AuthenticationError('You need to be logged in!');
-  },
-},
 };
 
 module.exports = resolvers;
