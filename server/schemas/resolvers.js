@@ -18,6 +18,8 @@ const resolvers = {
 
         return recipeData;
       }
+
+      throw new AuthenticationError('Not logged in');
     },
     users: async () => {
       return User.find()

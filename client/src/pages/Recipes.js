@@ -10,7 +10,7 @@ import '../assets/css/recipes.css'
 import Auth from '../utils/auth';
 
 const Recipes = () => {
-  const { loading, data, refetch } = useQuery(QUERY_ME);
+  const { loading, data, refetch } = useQuery(QUERY_ME, {fetchPolicy: 'network-only'});
   const [deleteRecipe, { error }] = useMutation(DELETE_RECIPE);
   const [showRecipes, setShowRecipes] = useState({});
 
