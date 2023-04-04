@@ -67,29 +67,26 @@ const SaveInstructions = (props) => {
       });
       console.log(data);
       if (withNavigate && data) {
-        // localStorage.removeItem('recipeId');
+        localStorage.removeItem('recipeId');
         navigate('/recipes');
-      };
-
+      } else {
+        setSaveInstructionData({
+          direction: '',
+        });
+      }
     } catch (err) {
       setErrorMessage('Unable to save ingredients. Please try again.')
       console.error(err);
     }
-
-    if (!withNavigate) {
-      setSaveInstructionData({
-        direction: '',
-      });
-    };
   };
 
   const handleRecipeClick = (event) => {
     event.preventDefault();
-    // localStorage.removeItem('recipeId');
+    localStorage.removeItem('recipeId');
     navigate(`/recipes/${recipeId}`);
   };
 
-  
+
   useEffect(() => {
     if (!Auth.loggedIn()) {
       navigate("/");
@@ -99,7 +96,7 @@ const SaveInstructions = (props) => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  
+
   return (
     <>
       <section className='storerecipe-section'>

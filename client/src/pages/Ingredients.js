@@ -65,24 +65,22 @@ const SaveIngredients = (props) => {
       });
       if (withNavigate && data) {
         navigate('/instructions');
+      } else {
+        setSaveIngredientData({
+          unit: '',
+          amount: '',
+          item: '',
+        });
       }
     } catch (err) {
       setErrorMessage('Unable to save ingredients. Please try again.')
       console.error(err);
     }
-
-    if (!withNavigate) {
-      setSaveIngredientData({
-        unit: '',
-        amount: '',
-        item: '',
-      });
-    };
   };
 
   const handleRecipeClick = (event) => {
     event.preventDefault();
-    // localStorage.removeItem('recipeId');
+    localStorage.removeItem('recipeId');
     navigate(`/recipes/${recipeId}`);
   };
 
