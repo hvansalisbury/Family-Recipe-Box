@@ -14,6 +14,8 @@ const Recipes = () => {
   const [deleteRecipe, { error }] = useMutation(DELETE_RECIPE);
   const [showRecipes, setShowRecipes] = useState({});
 
+  console.log(data?.me.recipes)
+
   const userRecipes = data?.me.recipes || [];
   
   useEffect(() => {
