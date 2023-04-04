@@ -27,10 +27,10 @@ const StoreRecipe = (props) => {
     const { target } = e;
     const inputType = target.name;
     const inputValue = target.value;
-    
+
     inputValue === ''
-    ? setErrorMessage(`${inputType} is required!`)
-    : setErrorMessage('')
+      ? setErrorMessage(`${inputType} is required!`)
+      : setErrorMessage('')
   };
 
   useEffect(() => {
@@ -42,9 +42,8 @@ const StoreRecipe = (props) => {
   }, [error]);
 
   const navigate = useNavigate();
-  
-  const handleFormSubmit = async (event) => {
-    console.log(saveRecipeData);
+
+  const handleFormSubmit = async (event, withNavigate = false) => {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -56,18 +55,21 @@ const StoreRecipe = (props) => {
       const { data } = await saveRecipe({
         variables: { input: saveRecipeData },
       });
-      console.log(data);
       localStorage.setItem('recipeId', data.saveRecipe._id);
-      navigate('/ingredients');
+      if (withNavigate && data) {
+        navigate('/ingredients');
+      }
     } catch (err) {
       setErrorMessage('Unable to store recipe. Please try again.')
       console.error(err);
     }
-    
-    setSaveRecipeData({
-      title: '',
-      description: '',
-    });
+
+    if (!withNavigate) {
+      setSaveRecipeData({
+        title: '',
+        description: '',
+      });
+    }
   };
 
   useEffect(() => {
@@ -81,7 +83,7 @@ const StoreRecipe = (props) => {
     <>
       <section className='storerecipe-section'>
         <h2>Store your recipe</h2>
-        <form className='storerecipe-form' onSubmit={handleFormSubmit}>
+        <form className='storerecipe-form'>
           {errorMessage && (
             <div
               id='error-message'
@@ -100,7 +102,7 @@ const StoreRecipe = (props) => {
               type='text'
               name='title'
               placeholder='Recipe Name'
-              value={saveRecipeData.title}
+              defaultValue={saveRecipeData.title}
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -111,7 +113,7 @@ const StoreRecipe = (props) => {
               type='text'
               name='description'
               placeholder='Recipe Description'
-              value={saveRecipeData.description}
+              defaultValue={saveRecipeData.description}
               onChange={handleChange}
               rows='4'
             />
@@ -119,8 +121,10 @@ const StoreRecipe = (props) => {
           <div className='storerecipe-formline'>
             <div className='center-button'>
               <button
-                type='submit'
-                {...saveRecipeData.title && saveRecipeData.description ? { disabled: false } : { disabled: true }}
+                {...saveRecipeData.title && saveRecipeData.description
+                  ? { disabled: false }
+                  : { disabled: true }}
+                onClick={(event) => handleFormSubmit(event, true)}
               >
                 Enter Ingredients
               </button>

@@ -25,7 +25,7 @@ const userSchema = new Schema(
     recipes: [
       {
         type: String,
-      },
+      }
     ],
   },
   // set this to use virtual below

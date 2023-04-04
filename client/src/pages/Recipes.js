@@ -17,16 +17,18 @@ const Recipes = () => {
   useEffect(() => {
     if (data) {
       setShowRecipes(data.me);
+      console.log(data.me)
     }
   }, [data]);
 
+  console.log(data)
   const handleDeleteRecipe = async (recipeId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
       return false;
     }
-
+    
     try {
       const { data } = await deleteRecipe({
         variables: { recipeId },
@@ -45,11 +47,13 @@ const Recipes = () => {
       navigate("/");
     }
   }, [navigate]);
-
+  
   if (loading) {
     return <h2>LOADING...</h2>;
   }
-
+  
+  console.log(showRecipes);
+  
   return (
     <>
       <div className='recipes-container'>

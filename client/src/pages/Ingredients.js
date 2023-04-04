@@ -63,7 +63,6 @@ const SaveIngredients = (props) => {
       const { data } = await saveIngredient({
         variables: { ...input },
       });
-      console.log(data);
       if (withNavigate && data) {
         navigate('/instructions');
       }
@@ -83,7 +82,7 @@ const SaveIngredients = (props) => {
 
   const handleRecipeClick = (event) => {
     event.preventDefault();
-    localStorage.removeItem('recipeId');
+    // localStorage.removeItem('recipeId');
     navigate(`/recipes/${recipeId}`);
   };
 
@@ -132,7 +131,7 @@ const SaveIngredients = (props) => {
               type='number'
               name='amount'
               placeholder='amount of ingredient'
-              value={saveIngredientData.amount}
+              defaultValue={saveIngredientData.amount}
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -143,7 +142,7 @@ const SaveIngredients = (props) => {
               type='text'
               name='unit'
               placeholder='cup, tbsp, tsp, etc.'
-              value={saveIngredientData.unit}
+              defaultValue={saveIngredientData.unit}
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -154,7 +153,7 @@ const SaveIngredients = (props) => {
               type='text'
               name='item'
               placeholder='flour, sugar, etc.'
-              value={saveIngredientData.item}
+              defaultValue={saveIngredientData.item}
               onChange={handleChange}
               onBlur={handleBlur}
             />

@@ -58,13 +58,16 @@ const SaveInstructions = (props) => {
     const recipeid = localStorage.getItem('recipeId');
     saveInstructionData.recipeId = recipeid;
     const input = { input: saveInstructionData };
-
+    console.log(saveInstructionData);
+    console.log(input);
     try {
+      console.log(input);
       const { data } = await saveInstruction({
         variables: { ...input },
       });
+      console.log(data);
       if (withNavigate && data) {
-        localStorage.removeItem('recipeId');
+        // localStorage.removeItem('recipeId');
         navigate('/recipes');
       };
 
@@ -82,7 +85,7 @@ const SaveInstructions = (props) => {
 
   const handleRecipeClick = (event) => {
     event.preventDefault();
-    localStorage.removeItem('recipeId');
+    // localStorage.removeItem('recipeId');
     navigate(`/recipes/${recipeId}`);
   };
 
