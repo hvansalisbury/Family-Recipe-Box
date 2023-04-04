@@ -173,7 +173,7 @@ const SaveInstructions = (props) => {
           </div>
         </form>
         <div>
-          <button onClick={handleRecipeClick}>
+          <button className='back-button' onClick={handleRecipeClick}>
             back to recipe
           </button>
         </div>

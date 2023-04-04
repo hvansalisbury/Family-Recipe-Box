@@ -71,3 +71,37 @@
       color-stop(1, rgb(90,150,199))
   );
 }
+
+@media screen and (max-width: 800px) {
+  .recipe-card-basic {
+    width: 80%;
+  }
+}
+  
+@media screen and (max-width: 625px) {
+  .recipe-card-basic {
+    width: 100%;
+  }
+
+  .recipes-container h2 {
+    font-size: 1.5em;
+  }
+
+  .recipe-card-basic h4 {
+    font-size: 1.25em;
+  }
+}
+  
+@media screen and (max-width: 550px) {
+  .recipes-section {
+    width: 95%;
+  }
+
+  .button-box {
+    flex-direction: column;
+  }
+
+  .button-box button {
+    margin: .5em 0;
+  }
+}

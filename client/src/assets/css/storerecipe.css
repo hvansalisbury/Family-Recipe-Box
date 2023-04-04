@@ -62,7 +62,8 @@
   justify-content: center;
 }
 
-.center-button button {
+.center-button button,
+.back-button {
   margin: 0 1em;
   padding: .25em 1.5em;
   border-radius: 5px;
@@ -72,12 +73,14 @@
   box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
 }
 
-.center-button button:hover {
+.center-button button:hover,
+.back-button:hover {
   background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(grey));
   transition: .4s;
 }
 
-.center-button button:active {
+.center-button button:active,
+.back-button:active {
   background-image: linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
   background-image: -o-linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
   background-image: -moz-linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
@@ -89,4 +92,70 @@
       left top,
       color-stop(0, rgb(88, 154, 204)),
       color-stop(1, rgb(90, 150, 199)));
+}
+
+.back-button {
+  margin-top: .5em;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .storerecipe-form,
+  .recipe-details {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .storerecipe-form,
+  .recipe-details {
+    width: 90%;
+  }
+
+  .storerecipe-formline label {
+    width: 30%;
+  }
+
+  .recipe-details h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .storerecipe-section h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .storerecipe-formline {
+    flex-direction: column;
+  }
+  .storerecipe-formline label {
+    width: 100%;
+    text-align: start;
+    margin-bottom: .2rem;
+    padding: 0;
+  }
+
+  .storerecipe-formline input,
+  .storerecipe-formline textarea {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .storerecipe-section h2 {
+    font-size: 1.25rem;
+  }
+
+  .center-button {
+    flex-direction: column;
+  }
+
+  .center-button button {
+    margin: .5em 0;
+    padding: 0;
+  }
 }

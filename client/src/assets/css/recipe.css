@@ -68,3 +68,142 @@
 .button-toggle:hover button {
   display: flex;
 }
+
+.add-button {
+  margin: 0 1em;
+  padding: .25em 1.5em;
+  border-radius: 5px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(grey), to(white));
+  -webkit-box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+  -moz-box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+  box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
+}
+
+.add-button:hover {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(grey));
+  transition: .4s;
+}
+
+.add-button:active {
+  background-image: linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
+  background-image: -moz-linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(88, 154, 204) 0%, rgb(90, 150, 199) 100%);
+
+  background-image: -webkit-gradient(linear,
+      left bottom,
+      left top,
+      color-stop(0, rgb(88, 154, 204)),
+      color-stop(1, rgb(90, 150, 199)));
+}
+
+.close-button-box {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 100%;
+  height: auto;
+}
+
+.close-button {
+  padding: 1px 8px;
+  position: relative;
+  right: 0px;
+  top: 0px;
+  border: 1px solid #000;
+  border-radius: 50%;
+}
+
+.ReactModal__Content {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.editform h4,
+.editformline label,
+.editformline input,
+.editformline textarea {
+  margin-bottom: .2em;
+}
+
+.editformline {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+@media screen and (max-width: 800px) {
+  .recipe-card {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    padding: 1em 2.5em;
+  }
+
+  .recipe-card aside {
+    width: 100%;
+    border-right: none;
+    padding-right: 0;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+  }
+
+  .instructions-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+  }
+
+  .instructions-card ol {
+    padding-left: 1em;
+    margin-bottom: 0;
+  }
+
+  .add-button {
+    margin: 1em 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .editform h4 {
+    font-size: 1.1em;
+  }
+
+  .editformline {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editformline input,
+  .editformline textarea,
+  .editformline button {
+    width: 100%;
+    margin-bottom: .5em;
+  }
+
+  .ReactModal__Content {
+    width: 95vw;
+  } 
+}
+
+@media screen and (max-width: 400px) {
+  .recipe-card {
+    padding: 1em;
+  }
+
+  .button-toggle h2 {
+    font-size: 1.25em;
+  }
+
+  .ingredients-card h4,
+  .instructions-card h4 {
+    font-size: 1.1em;
+  }
+}

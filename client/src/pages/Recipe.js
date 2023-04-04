@@ -16,7 +16,6 @@ const styles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     backgroundColor: "white",
-    width: 400,
   },
 };
 
@@ -84,8 +83,8 @@ const Recipe = () => {
       const inputType = target.name;
       const inputValue = target.value;
       const index = target.getAttribute('index');
-      
-      setInputText({...inputText, [inputType]: inputValue , index: index });
+
+      setInputText({ ...inputText, [inputType]: inputValue, index: index });
     }
   };
 
@@ -210,7 +209,7 @@ const Recipe = () => {
                   >
                     <div index={index}>
                       <span arrayindex={index} name='amount'>{ingredient.amount}</span>
-                      <span> </span> 
+                      <span> </span>
                       <span arrayindex={index} name='unit'>{ingredient.unit}</span>
                       <span> - </span>
                       <span arrayindex={index} name='item'>{ingredient.item}</span>
@@ -225,7 +224,7 @@ const Recipe = () => {
                 )
               })}
               <div>
-                <button onClick={handleAddIngredient}>
+                <button className='add-button' onClick={handleAddIngredient}>
                   add ingredient
                 </button>
               </div>
@@ -253,7 +252,7 @@ const Recipe = () => {
               })}
             </ol>
             <div>
-              <button onClick={handleAddInstruction}>
+              <button className='add-button' onClick={handleAddInstruction}>
                 add instruction
               </button>
             </div>
@@ -268,7 +267,9 @@ const Recipe = () => {
             onRequestClose={() => setModalOpen(false)}
             style={styles}
           >
-
+            <div className='close-button-box'>
+              <button className='close-button' onClick={() => setModalOpen(false)}>&times;</button>
+            </div>
             <form id='title-description-form' className='editform' onSubmit={handleFormSubmit}>
               <h4>Edit {modalData.name}</h4>
               <div className='editformline'>
@@ -277,7 +278,6 @@ const Recipe = () => {
                 <button {...inputText ? { disabled: false } : { disabled: true }} type='submit'>Submit Edit</button>
               </div>
             </form>
-            <button onClick={() => setModalOpen(false)}>Close</button>
           </Modal>
           : modalType === 'ingredients' ?
             <Modal
@@ -287,7 +287,9 @@ const Recipe = () => {
               onRequestClose={() => setModalOpen(false)}
               style={styles}
             >
-
+              <div className='close-button-box'>
+                <button className='close-button' onClick={() => setModalOpen(false)}>&times;</button>
+              </div>
               <form id='ingredients-form' className='editform' onSubmit={handleFormSubmit}>
                 <h4>Edit Ingredient</h4>
                 <div className='editformline'>
@@ -304,7 +306,6 @@ const Recipe = () => {
                 </div>
                 <button {...inputText ? { disabled: false } : { disabled: true }} type='submit'>Submit Edit</button>
               </form>
-              <button onClick={() => setModalOpen(false)}>Close Modal</button>
             </Modal>
             :
             <Modal
@@ -314,7 +315,9 @@ const Recipe = () => {
               onRequestClose={() => setModalOpen(false)}
               style={styles}
             >
-
+              <div className='close-button-box'>
+                <button className='close-button' onClick={() => setModalOpen(false)}>&times;</button>
+              </div>
               <form id='instructions-form' className='editform' onSubmit={handleFormSubmit}>
                 <h4>Edit Direction</h4>
                 <div className='editformline'>
@@ -323,7 +326,6 @@ const Recipe = () => {
                 </div>
                 <button {...inputText ? { disabled: false } : { disabled: true }} type='submit'>Submit Edit</button>
               </form>
-              <button onClick={() => setModalOpen(false)}>Close Modal</button>
             </Modal>
         }
       </div>

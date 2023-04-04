@@ -1,4 +1,4 @@
-  import React from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
@@ -7,6 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import './assets/css/App.css'
 
 import Landing from './pages/Landing';
 import Navbar from './components/Navbar';
@@ -27,16 +28,16 @@ import bread from './assets/images/pexels-skyler-ewing-9482665.jpg'
 import burger from './assets/images/pexels-valeria-boltneva-1639562.jpg'
 
 const images = [
-  {"image": macarons, "alt": "ylanite-koppens-macarons"}, 
-  {"image": tortellini, "alt": "karolina-grabowska-tottelini"}, 
-  {"image": calzone, "alt": "karolina-grabowska-calzone"},
-  {"image": knife, "alt": "lukas-knife"}, 
-  {"image": pizza, "alt": "eneida-nieves-pizza"},
-  {"image": bread, "alt": "skyler-ewing-bread"},
-  {"image": burger, "alt": "valeria-boltneva-burger"}
+  { "image": macarons, "alt": "ylanite-koppens-macarons" },
+  { "image": tortellini, "alt": "karolina-grabowska-tottelini" },
+  { "image": calzone, "alt": "karolina-grabowska-calzone" },
+  { "image": knife, "alt": "lukas-knife" },
+  { "image": pizza, "alt": "eneida-nieves-pizza" },
+  { "image": bread, "alt": "skyler-ewing-bread" },
+  { "image": burger, "alt": "valeria-boltneva-burger" }
 ]
 
-const randomImage = images[Math.floor(Math.random()*images.length)];
+const randomImage = images[Math.floor(Math.random() * images.length)];
 
 const styles = {
   image: {
@@ -79,44 +80,44 @@ function App() {
         <>
           <Navbar />
           <main style={styles.image} alt={randomImage.alt}>
-          <Routes>
-            <Route
-              path="/"
-              element={<Landing />}
-            />
-            <Route
-              path="/login"
-              element={<Login />}
-            />
-            <Route
-              path="/signup"
-              element={<Signup />}
-            />
-            <Route
-              path="/storerecipe"
-              element={<StoreRecipe />}
-            />
-            <Route
-              path="/ingredients"
-              element={<SaveIngredients />}
-            />
-            <Route
-              path="/instructions"
-              element={<SaveInstructions />}
-            />
-            <Route
-              path="/recipes"
-              element={<Recipes />}
-            />
-            <Route
-              path="/recipes/:recipeId"
-              element={<Recipe />}
-            />
-            <Route
-              path='*'
-              element={<h1 className="display-2">Wrong page!</h1>}
-            />
-          </Routes>
+            <Routes>
+              <Route
+                path="/"
+                element={<Landing />}
+              />
+              <Route
+                path="/login"
+                element={<Login />}
+              />
+              <Route
+                path="/signup"
+                element={<Signup />}
+              />
+              <Route
+                path="/storerecipe"
+                element={<StoreRecipe />}
+              />
+              <Route
+                path="/ingredients"
+                element={<SaveIngredients />}
+              />
+              <Route
+                path="/instructions"
+                element={<SaveInstructions />}
+              />
+              <Route
+                path="/recipes"
+                element={<Recipes />}
+              />
+              <Route
+                path="/recipes/:recipeId"
+                element={<Recipe />}
+              />
+              <Route
+                path='*'
+                element={<h1 className="display-2">Wrong page!</h1>}
+              />
+            </Routes>
           </main>
         </>
       </Router>

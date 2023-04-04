@@ -102,3 +102,38 @@
       color-stop(1, rgb(90,150,199))
   );
 }
+
+@media screen and (max-width: 1345px) {
+  .form {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .form {
+    width: 90%;
+  }
+
+  .form-line label{
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .form-line {
+    flex-direction: column;
+    margin-top: 0;
+  }
+ 
+  .form-line label {
+    width: 100%;
+    text-align: start;
+    margin-bottom: .2rem;
+    padding: 0;
+  }
+
+  .form-line input {
+    width: 100%;
+    margin: 0;
+  }
+}

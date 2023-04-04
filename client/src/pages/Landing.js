@@ -1,9 +1,10 @@
 import React from 'react';
+import '../assets/css/landing.css';
 
 const styles = {
   title: {
     display: 'flex',
-    height: 'calc(100vh - 50px)',
+    height: '100%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
