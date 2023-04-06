@@ -1,3 +1,4 @@
+// This file contains the mutations for the application
 import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`

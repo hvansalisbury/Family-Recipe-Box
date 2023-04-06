@@ -1,3 +1,4 @@
+// This file is where we define the query and mutation functionality to interact with the database
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Recipe } = require('../models');
 const { signToken } = require('../utils/auth');

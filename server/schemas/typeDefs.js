@@ -1,3 +1,4 @@
+// This file defines the typeDefs for the GraphQL API
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`

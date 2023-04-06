@@ -1,6 +1,7 @@
+// This file is used to create a token and verify a token
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
-
+// dotenv protection for JWT_SECRET
 const secret = process.env.JWT_SECRET;
 const expiration = '2h';
 

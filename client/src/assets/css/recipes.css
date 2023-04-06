@@ -1,3 +1,4 @@
+/* each recipe is stored here, 100vw and centered */
 .recipes-container {
   display: flex;
   flex-direction: column;
@@ -5,12 +6,12 @@
   height: 100%;
   align-items: center;
 }
-
+/* header that shows user's name */
 .recipes-container h2 {
   margin-top: 1em;
   -webkit-text-stroke: 1px whitesmoke;
 }
-
+/* the section that shows the recieps are 80% wide, but evenly spaced out, and wraps */
 .recipes-section {
   display: flex;
   width: 80%;
@@ -18,7 +19,7 @@
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
-
+/* each recipe is a table display, left justified, spacing, height, border, rounded, and shadow, and opacity */
 .recipe-card-basic {
   display: table-cell;
   flex-direction: row;
@@ -34,13 +35,13 @@
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
   background: rgba(255, 255, 255, .7);
 }
-
+/* buttons are centered */
 .button-box {
   display: flex;
   width: 100%;
   justify-content: center;
 }
-
+/* buttons are gradient, spacing, etc. */
 .button-box button {
   margin: 0 1em;
   padding: .25em 1.5em;
@@ -50,12 +51,12 @@
   -moz-box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
   box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
 }
-
+/* inverted gradient when hovered */
 .button-box button:hover {
   background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(grey));
   transition: .4s;
 }
-
+/* button background when active */
 .button-box button:active {
   background-image: linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
   background-image: -o-linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
@@ -71,13 +72,13 @@
       color-stop(1, rgb(90,150,199))
   );
 }
-
+/* cards are wider on smaller screens so there ar 1 per line */
 @media screen and (max-width: 800px) {
   .recipe-card-basic {
     width: 80%;
   }
 }
-  
+  /* recipes are wider on smaller screerns, and font size smaller */
 @media screen and (max-width: 625px) {
   .recipe-card-basic {
     width: 100%;
@@ -91,7 +92,7 @@
     font-size: 1.25em;
   }
 }
-  
+/* smaller screens with wider recipes, vertical buttons, and spacing */
 @media screen and (max-width: 550px) {
   .recipes-section {
     width: 95%;

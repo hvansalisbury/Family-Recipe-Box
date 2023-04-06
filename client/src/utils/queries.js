@@ -1,3 +1,4 @@
+// This file contains the queries that will be used to fetch data from the server.
 import { gql } from '@apollo/client';
 
 export const QUERY_ME = gql`

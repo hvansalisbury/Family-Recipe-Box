@@ -1,10 +1,12 @@
+// navbar component, renders the navbar at the top of the page, with links to the login page, the store recipe page, and the recipes page
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/css/navbar.css'
-
+// import the auth middleware function
 import Auth from '../utils/auth';
 
 const AppNavbar = () => {
+  // conditional rendering of navbar elements based on whether the user is logged in or not
   return (
     <>
       <header>

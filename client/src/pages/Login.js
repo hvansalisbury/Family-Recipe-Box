@@ -1,21 +1,30 @@
+// Purpose: To create a login page for the user to login to the application
 import React, { useState, useEffect } from 'react';
-
+// use useMutation hook from apollo client
 import { useMutation } from '@apollo/client';
+// import LOGIN_USER mutation
 import { LOGIN_USER } from '../utils/mutations';
+// import validateEmail function
 import validateEmail from '../utils/validateEmail';
+// import css file
 import '../assets/css/login.css'
-
+// import auth middleware function
 import Auth from '../utils/auth';
+// import Link component from react-router-dom
 import { Link } from 'react-router-dom';
-
+// login page component
 const Login = (props) => {
+  // useState hook to set user form data
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  // useState hook to set validation
   const [validated] = useState(false);
+  // useState hook to set show alert
   const [showAlert, setShowAlert] = useState(false);
+  // use useMutation hook to execute LOGIN_USER mutation
   const [login, { error }] = useMutation(LOGIN_USER);
-
+  // useState hook to set error message
   const [errorMessage, setErrorMessage] = useState('');
-
+  // handle input change and save to state
   const handleChange = (e) => {
     const { target } = e;
     const inputType = target.name;
@@ -23,12 +32,11 @@ const Login = (props) => {
 
     setUserFormData({ ...userFormData, [inputType]: inputValue });
   };
-
+  // handle input blur and save to state
   const handleBlur = (e) => {
     const { target } = e;
     const inputType = target.name;
     const inputValue = target.value;
-
     inputValue === ''
       ? setErrorMessage(`${inputType} is required!`)
       : setErrorMessage('')
@@ -39,7 +47,7 @@ const Login = (props) => {
         : setErrorMessage('')
     };
   };
-
+  // useEffect hook to show error message
   useEffect(() => {
     if (error) {
       setShowAlert(true);
@@ -47,26 +55,27 @@ const Login = (props) => {
       setShowAlert(false);
     }
   }, [error]);
-
+  // handle form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    // check if form is valid
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
+    // use login mutation to execute LOGIN_USER mutation
     try {
       const { data } = await login({
         variables: { ...userFormData },
       });
-
+      // save token to localStorage
       Auth.login(data.login.token);
     } catch (e) {
+      // set error message
       setErrorMessage('Your credentials are incorrect! Please try again.')
       console.error(e);
     }
-
     // clear form values
     setUserFormData({
       email: '',
@@ -78,6 +87,7 @@ const Login = (props) => {
     <>
       <section className='login-section'>
         <h2>Login</h2>
+        {/* login form */}
         <form className='form' onSubmit={handleFormSubmit}>
           {errorMessage && (
             <div

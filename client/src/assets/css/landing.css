@@ -1,3 +1,4 @@
+/* adjust the size of the h1 element on smaller screens */
 @media screen and (max-width: 640px) {
   h1 {
     font-size: 2rem;

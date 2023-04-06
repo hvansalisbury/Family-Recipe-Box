@@ -1,6 +1,10 @@
+// This is the main server file for the application
 const express = require('express');
+// apollo server helps us connect to the graphql api
 const { ApolloServer } = require('apollo-server-express');
+// path is a node package that helps us work with file and directory paths
 const path = require('path');
+// import our middleware function from the auth.js file
 const { authMiddleware } = require('./utils/auth');
 
 const { typeDefs, resolvers } = require('./schemas');

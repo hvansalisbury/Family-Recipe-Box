@@ -1,3 +1,4 @@
+/* header is flex-row, elements are spaced apart, but vertically center, brown background, 50px height, and padding */
 header {
   display: flex;
   justify-content: space-between;
@@ -6,19 +7,19 @@ header {
   padding: 0.5rem 1rem;
   height: 50px
 }
-
+/* color, size, margin of heading */
 .heading {
   color: whitesmoke;
   font-size: 1.5rem;
   font-weight: 600;
   margin-left: 1rem;
 }
-
+/* spacing and color for navigation links */
 .navlink {
   padding: 0.5rem 1rem;
   color: darkgrey;
 }
-
+/* hover effect of the heading and nav links */
 .navlink:hover,
 .heading:hover {
   color: whitesmoke;
@@ -26,24 +27,24 @@ header {
   transition: .4s;
   text-decoration: none;
 }
-
+/* overriding hover effects of heading */
 .heading:hover {
   color: white;
   background-color: saddlebrown;
   border-radius: 5px;
 }
-
+/* active background */
 .active {
   color: whitesmoke;
   background-color: cornflowerblue;
   border-radius: 5px;
 }
-
+/* modal header button location */
 .modal-header-btn {
   display: flex;
   align-items: center;
 }
-
+/* nav bar spacing, no bullets, and flex */
 .nav {
   display: flex;
   flex-wrap: wrap;
@@ -51,13 +52,13 @@ header {
   margin-bottom: 0;
   list-style: none;
 }
-
+/* size, spacing of modal title */
 .modal-title {
   margin-bottom: 0;
   line-height: 1.5;
   font-size: 1.5rem;
 }
-
+/* flex, spacing, alignment of modal header */
 .modal-header {
   display: flex;
   align-items: flex-start;
@@ -67,7 +68,7 @@ header {
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
 }
-
+/* smaller screens, with smaller size and spacing */
 @media screen and (max-width: 640px) {
   .heading {
     font-size: 1.25rem;
@@ -78,7 +79,7 @@ header {
     padding: 0.5rem 0.5rem;
   }
 }
-
+/* header is changed to vertical, spaced out, centered, spacing and height, and smaller fonts */
 @media screen and (max-width: 500px) {
   header {
     display: flex;
@@ -99,7 +100,7 @@ header {
     padding: 0.5rem 0.5rem;
   }
 }
-
+/* smaller screens have smaller fonts and spacing */
 @media screen and (max-width: 500px) {
   .navlink {
     font-size: .7rem;

@@ -1,8 +1,6 @@
+// This file defines the User model
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-
-// import schema from Recipe.js
-// const Recipe = require('./recipe');
 
 const userSchema = new Schema(
   {
@@ -21,14 +19,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // set savedBooks to be an array of data that adheres to the bookSchema
     recipes: [
       {
         type: String,
       }
     ],
   },
-  // set this to use virtual below
   {
     toJSON: {
       virtuals: true,

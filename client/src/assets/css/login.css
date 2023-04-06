@@ -1,14 +1,15 @@
+/* flex, centered, and vertical */
 .login-section {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
+/* spacing and outline */
 .login-section h2 {
   margin-top: 1em;
   -webkit-text-stroke: .5px whitesmoke;
 }
-
+/* set the size, border, color, opacity for the login/signup forms */
 .form {
   border: 1px solid sienna;
   border-radius: 5px;
@@ -17,33 +18,33 @@
   background-color: whitesmoke;
   background: rgba(255, 255, 255, .7)  
 }
-
+/* each form part has the same line styling */
 .form-line {
   display: flex;
   margin-bottom: 1rem;
 }
-
+/* top margin for object type */
 .form-line:first-of-type {
   margin-top: 1rem;
 }
-
+/* puts labels on the left, small, and right justified */
 .form-line label {
   text-align: end;
   width: 15%;
   padding-right: 1em;
 }
-
+/* puts input boxes on the right side and leaves a right margin based on changing screen dimensions */
 .form-line input {
   width: 85%;
   margin-right: 5%;
 }
-
+/* a container that centers the buttons */
 .center-btn {
   display: flex;
   width: 100%;
   justify-content: center;
 }
-
+/* the message that appears when a required field is left empty */
 .error-message {
   display: flex;
   justify-content: space-evenly;
@@ -51,28 +52,28 @@
   color: #dc3545;
   margin-bottom: .5rem;
 }
-
+/* styling for the close button */
 .close-button {
   border: none;
   background-color: transparent;
 }
-
+/* hides element */
 .hidden {
   display: none;
 }
-
+/* link to switch between signup and login forms */
 .signup-link,
 .login-link {
   margin-top: 1em;
   font-weight: 700;
 }
-
+/* centers buttons */
 .center-button {
   display: flex;
   width: 100%;
   justify-content: center;
 }
-
+/* styling of button */
 .center-button button {
   padding: .25em 1.5em;
   border-radius: 5px;
@@ -81,12 +82,12 @@
   -moz-box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
   box-shadow: 0px 3px 0px #2b638f, 0px 3px 15px rgba(0, 0, 0, .4), inset 0px 1px 0px rgba(255, 255, 255, .3), inset 0px 0px 3px rgba(255, 255, 255, .5);
 }
-
+/* the hover effect over buttons */
 .center-button button:hover {
   background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(grey));
   transition: .4s;
 }
-
+/* backgrund styling of active button */
 .center-button button:active {
   background-image: linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
   background-image: -o-linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
@@ -102,13 +103,13 @@
       color-stop(1, rgb(90,150,199))
   );
 }
-
+/* media query to make form wider below 1345 px wide */
 @media screen and (max-width: 1345px) {
   .form {
     width: 75%;
   }
 }
-
+/* media query to make form wider below 900px and makes label width bigger*/
 @media screen and (max-width: 900px) {
   .form {
     width: 90%;
@@ -118,7 +119,7 @@
     width: 30%;
   }
 }
-
+/* media query to make form line elements vertical instead of horizontal and makes lable and inputs 100% wide, left aligned, and adjusts margins*/
 @media screen and (max-width: 500px) {
   .form-line {
     flex-direction: column;

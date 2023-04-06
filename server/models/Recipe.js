@@ -1,3 +1,4 @@
+// This file defines the Recipe model.
 const { Schema, model } = require('mongoose');
 const ingredientSchema = require('./Ingredient');
 const instructionSchema = require('./Instruction');
