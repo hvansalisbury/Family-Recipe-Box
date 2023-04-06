@@ -1,9 +1,12 @@
 // This file is where we define the query and mutation functionality to interact with the database
 const { AuthenticationError } = require('apollo-server-express');
+// import the User and Recipe models
 const { User, Recipe } = require('../models');
+// import the signToken function from the auth.js file
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
+  // query for person who is logged in, query for a recipe, query for all users, query for all recipes
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
@@ -32,6 +35,7 @@ const resolvers = {
         .select('-__v')
     }
   },
+  // query for a user's saved recipes
   User: {
     recipes: async (parent) => {
       console.log(parent)
@@ -39,13 +43,16 @@ const resolvers = {
       return recipes;
     }
   },
+  // mutations
   Mutation: {
+    // create a user, sign a token, log a user in
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
 
       return { token, user };
     },
+    // login user, sign a token, log a user in
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -62,6 +69,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    // save a recipe, add recipe to user's saved recipes
     saveRecipe: async (parent, { input }, context) => {
       if (context.user) {
         console.log(input)
@@ -77,6 +85,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    // save an ingredient, add ingredient to recipe's ingredients
     saveIngredient: async (parent, { input }, context) => {
       if (context.user) {
         const updatedRecipe = await Recipe.findByIdAndUpdate(
@@ -90,6 +99,7 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
+    // save an instruction, add instruction to recipe's instructions
     saveInstruction: async (parent, { input }, context) => {
       if (context.user) {
         const updatedRecipe = await Recipe.findByIdAndUpdate(
@@ -103,6 +113,7 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
+    // delete a recipe, remove recipe from user's saved recipes
     deleteRecipe: async (parent, { _id }, context) => {
       if (context.user) {
         console.log(_id);
@@ -119,6 +130,7 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
+    // edit any component of a recipe
     editRecipe: async (parent, { recipeId, input }, context) => {
       if (context.user) {
         console.log(recipeId);
@@ -129,6 +141,7 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
+    // edit ingredients of a recipe
     editIngredients: async (parent, { recipeId, input }, context) => {
       if (context.user) {
         console.log(recipeId);
